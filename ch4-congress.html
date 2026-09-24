@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AP Gov — Ch. 4: Congress</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Theme: "Congressional Record" — parchment, federal navy, brick & brass */
+:root{
+  --ink:#14213d;
+  --ink-2:#1d2d52;
+  --line:#cdbf9f;
+  --paper:#f5efe2;
+  --paper-2:#fffcf5;
+  --paper-3:#ece3cf;
+  --paper-line:#e0d4bb;
+  --text:#1d2433;
+  --text-soft:#61656f;
+  --trace:#1f3a68;
+  --brick:#a33327;
+  --brick-dim:#f6e1dc;
+  --brass:#a88532;
+  --brass-dim:#f3e8cc;
+  --cyan:#276767;
+  --cyan-dim:#deecea;
+  --amber:#a8561a;
+  --amber-dim:#f8e7d2;
+  --good:#2f6b3f;
+  --good-dim:#e0eedf;
+  --mono:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans:'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --serif:'Fraunces', Georgia, 'Times New Roman', serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  background-image:radial-gradient(rgba(20,33,61,.035) 1px, transparent 1px);
+  background-size:18px 18px;
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.6;
+}
+a{color:var(--brick)}
+
+/* ---------- LAYOUT ---------- */
+.shell{display:flex;min-height:100vh}
+.rail{
+  width:290px;flex:0 0 290px;
+  background:var(--paper-3);color:var(--ink);
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  border-right:4px double var(--line);
+}
+.main{flex:1;min-width:0;padding:0 0 96px}
+.wrap{max-width:880px;margin:0 auto;padding:0 32px}
+
+/* ---------- RAIL ---------- */
+.brand{padding:24px 22px 18px;border-bottom:1px solid var(--line);display:flex;gap:14px;align-items:center}
+.seal{
+  flex:0 0 58px;height:58px;border-radius:50%;
+  border:2px solid var(--ink);box-shadow:inset 0 0 0 4px var(--paper-3),inset 0 0 0 5px var(--brass);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-weight:900;font-size:22px;color:var(--ink);background:var(--paper-2)
+}
+.brand .eyebrow{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--brick);margin:0 0 4px
+}
+.brand h1{font-family:var(--serif);font-size:23px;line-height:1.05;margin:0;color:var(--ink);font-weight:900;letter-spacing:-.01em}
+.brand p{margin:5px 0 0;font-size:11.5px;color:var(--text-soft);line-height:1.35}
+
+.whip{padding:14px 22px 14px;border-bottom:1px solid var(--line)}
+.whip .lbl{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--text-soft);display:flex;justify-content:space-between;margin-bottom:4px
+}
+.whip .lbl b{color:var(--brick);font-weight:700}
+.chamber{width:100%;height:auto;display:block}
+.chamber circle{transition:fill .35s ease}
+.whip .sub{font-family:var(--mono);font-size:9.5px;color:var(--text-soft);text-align:center;margin-top:2px}
+.peaks{display:flex;align-items:flex-end;gap:4px;height:30px;margin-top:12px}
+.peak{flex:1;background:#ddd1b6;position:relative;height:100%}
+.peak i{position:absolute;bottom:0;left:0;right:0;background:var(--ink);transition:height .45s cubic-bezier(.2,.8,.2,1);display:block}
+.peakaxis{display:flex;gap:4px;margin-top:4px;font-family:var(--mono);font-size:8.5px;color:var(--text-soft)}
+.peakaxis span{flex:1;text-align:center}
+
+nav{padding:8px 0 30px}
+.navgroup{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--brass);padding:14px 22px 6px;font-weight:700
+}
+.navitem{
+  display:flex;align-items:center;gap:10px;width:100%;text-align:left;
+  background:none;border:0;color:var(--ink);font-family:var(--sans);font-size:13.5px;
+  padding:8px 22px;cursor:pointer;border-left:4px solid transparent;line-height:1.3
+}
+.navitem:hover{background:rgba(20,33,61,.06)}
+.navitem.on{background:var(--ink);color:var(--paper);border-left-color:var(--brick)}
+.navitem .num{font-family:var(--mono);font-size:11px;color:var(--brick);flex:0 0 28px;font-weight:700}
+.navitem.on .num{color:#f0c9a0}
+.navitem .dot{margin-left:auto;width:9px;height:9px;border:1.5px solid var(--line);transform:rotate(45deg);flex:0 0 9px}
+.navitem .dot.done{background:var(--good);border-color:var(--good)}
+.reset{
+  display:block;margin:8px 22px 0;background:none;border:1px solid var(--line);color:var(--text-soft);
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  padding:7px 10px;cursor:pointer;width:calc(100% - 44px)
+}
+.reset:hover{color:var(--brick);border-color:var(--brick)}
+
+/* ---------- TOPBAR ---------- */
+.topbar{position:sticky;top:0;z-index:20;background:var(--ink);border-bottom:3px solid var(--brass)}
+.topbar .wrap{display:flex;align-items:center;gap:14px;padding-top:12px;padding-bottom:12px}
+.crumb{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#e9dfc8}
+.topbar .spacer{flex:1}
+.tbtn{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  background:transparent;border:1px solid #4a5a80;color:#e9dfc8;padding:7px 11px;cursor:pointer;white-space:nowrap
+}
+.tbtn:hover{border-color:var(--brass);color:#fff}
+.tbtn.on{background:var(--brass);border-color:var(--brass);color:var(--ink)}
+
+/* ---------- SECTIONS ---------- */
+section{display:none;padding-top:38px}
+section.on{display:block;animation:rise .3s ease}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.tnum{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--brick);text-transform:uppercase;margin-bottom:8px;font-weight:700}
+h2.title{
+  font-family:var(--serif);font-size:clamp(30px,4.6vw,48px);line-height:1.02;margin:0 0 14px;font-weight:900;
+  letter-spacing:-.02em;color:var(--ink);padding-bottom:14px;
+  border-bottom:1px solid var(--ink);box-shadow:0 3px 0 -1px var(--paper),0 4px 0 -1px var(--ink)
+}
+.lede{font-family:var(--serif);font-style:italic;font-weight:500;font-size:18px;color:#454a58;margin:18px 0 26px;max-width:62ch;line-height:1.5}
+
+h3{
+  font-family:var(--sans);font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);
+  margin:36px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--paper-line)
+}
+h3::before{content:"§ ";color:var(--brick)}
+h4{font-family:var(--serif);font-size:17px;font-weight:700;margin:22px 0 6px;color:var(--ink)}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 14px;padding-left:22px}
+li{margin:0 0 7px}
+li::marker{color:var(--brick)}
+b,strong{font-weight:700;color:#10182c}
+em{font-style:italic}
+code,.mono{font-family:var(--mono);font-size:.9em}
+.chem{font-family:var(--mono);font-size:.9em;white-space:nowrap;background:var(--brass-dim);padding:0 4px;border-radius:2px}
+
+.eq{background:var(--paper-2);border:1px solid var(--paper-line);border-left:5px solid var(--ink);padding:14px 16px;margin:14px 0}
+.eq .f{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--ink)}
+.eq .n{font-size:13px;color:var(--text-soft);margin-top:4px}
+
+.trap{background:var(--amber-dim);border:1px solid #e8c9a4;border-top:4px solid var(--amber);padding:13px 16px;margin:18px 0;font-size:14.5px}
+.trap .h{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:6px;font-weight:700}
+.trap .h::before{content:"⚠ "}
+.trap p:last-child{margin-bottom:0}
+
+.frq{background:var(--cyan-dim);border:1px solid #b9d6d2;border-top:4px solid var(--cyan);padding:13px 16px;margin:18px 0;font-size:14.5px}
+.frq .h{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:6px;font-weight:700}
+.frq .h::before{content:"✎ "}
+.frq p:last-child{margin-bottom:0}
+
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px;background:var(--paper-2)}
+th,td{border:1px solid var(--paper-line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--ink);color:#f3ead6;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+tbody tr:nth-child(even){background:#f8f2e4}
+td:first-child{font-weight:600;color:var(--ink)}
+
+/* ---------- PRACTICE ---------- */
+.pracheader{display:flex;align-items:baseline;gap:12px;margin:48px 0 4px;border-top:6px double var(--ink);padding-top:14px}
+.pracheader h3{border:0;margin:0;padding:0;font-family:var(--serif);font-size:24px;letter-spacing:-.01em;text-transform:none;font-weight:900}
+.pracheader h3::before{content:""}
+.pracheader .count{font-family:var(--mono);font-size:11px;color:var(--text-soft);margin-left:auto}
+
+.prob{background:var(--paper-2);border:1px solid var(--paper-line);border-left:6px solid var(--brick);margin:16px 0;overflow:hidden;box-shadow:0 1px 0 rgba(20,33,61,.05)}
+.prob.solved{border-left-color:var(--good)}
+.probq{padding:16px 20px}
+.qtag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-soft);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.qtag .kind{color:var(--brick);font-weight:700}
+.probq .body{font-size:15px}
+.probq .body p:last-child{margin-bottom:0}
+.probactions{display:flex;gap:8px;align-items:center;padding:0 20px 16px;flex-wrap:wrap}
+.reveal{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:#f3ead6;border:0;padding:9px 14px;cursor:pointer}
+.reveal:hover{background:var(--brick)}
+.mark{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--text-soft);padding:9px 12px;cursor:pointer}
+.mark:hover{border-color:var(--good);color:var(--good)}
+.mark.on{background:var(--good-dim);border-color:#a9cfae;color:var(--good)}
+.sol{display:none;border-top:1px dashed var(--line);background:#fbf7ec;padding:16px 20px;font-size:14.5px}
+.sol.show{display:block;animation:rise .22s ease}
+.sol .sh{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--brick);margin-bottom:9px;font-weight:700}
+.sol ol{padding-left:20px}
+.sol .ans{margin-top:12px;background:var(--good-dim);border:1px solid #a9cfae;border-left:5px solid var(--good);padding:9px 12px;font-weight:600;color:#1f4f2c;font-size:14px}
+.work{font-family:var(--mono);font-size:12.5px;background:#efe7d4;padding:10px 12px;margin:8px 0;overflow-x:auto;white-space:pre-wrap;border-left:3px solid var(--brass)}
+
+.fig{width:100%;height:auto;display:block;background:var(--paper-2);border:1px solid var(--paper-line);margin:16px 0 6px}
+.figcap{font-family:var(--mono);font-size:10.5px;color:var(--text-soft);margin:0 0 18px;text-align:center;letter-spacing:.03em}
+
+.mastered{display:flex;align-items:center;gap:12px;margin:40px 0 10px;padding:16px 20px;background:var(--ink);color:#f3ead6;flex-wrap:wrap;border-bottom:4px solid var(--brass)}
+.mastered .t{font-size:14px}
+.mastered .t b{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#f0c9a0;margin-bottom:3px}
+.mastered button{margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:none;border:1px solid #4a5a80;color:#f3ead6;padding:9px 14px;cursor:pointer}
+.mastered button:hover{border-color:#8fcf9c;color:#8fcf9c}
+.mastered button.on{background:#8fcf9c;border-color:#8fcf9c;color:var(--ink);font-weight:700}
+
+.jump{display:flex;gap:10px;margin-top:44px;padding-top:20px;border-top:1px solid var(--line)}
+.jump button{flex:1;background:var(--paper-2);border:1px solid var(--paper-line);padding:14px 16px;text-align:left;cursor:pointer;font-family:var(--sans)}
+.jump button:hover{border-color:var(--brick)}
+.jump .d{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--brick)}
+.jump .n{font-family:var(--serif);font-size:16px;font-weight:700;margin-top:3px;color:var(--ink)}
+.jump button:last-child{text-align:right}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin:18px 0}
+.card{background:var(--paper-2);border:1px solid var(--paper-line);border-top:3px solid var(--ink);padding:14px 16px}
+.card .k{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--brick);margin-bottom:6px;font-weight:700}
+.card .v{font-size:14px}
+.card .v p:last-child{margin-bottom:0}
+
+:focus-visible{outline:2px solid var(--brick);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+@media (max-width:860px){
+  .shell{display:block}
+  .rail{position:static;width:auto;height:auto;border-right:0;border-bottom:4px double var(--line)}
+  .whip{display:none}
+  nav{padding:6px 0 12px;display:flex;overflow-x:auto;gap:2px;-webkit-overflow-scrolling:touch}
+  .navgroup{display:none}
+  .navitem{width:auto;white-space:nowrap;border-left:0;border-bottom:3px solid transparent;padding:10px 14px}
+  .navitem.on{border-left:0;border-bottom-color:var(--brick)}
+  .navitem .dot{margin-left:6px}
+  .reset{display:none}
+  .wrap{padding:0 16px}
+  .jump{flex-direction:column}
+  table{display:block;overflow-x:auto}
+}
+@media print{
+  body{background:#fff}
+  .rail,.topbar,.probactions,.jump,.mastered{display:none}
+  section{display:block!important;page-break-before:always}
+  .sol{display:block!important}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <aside class="rail">
+    <div class="brand">
+      <div class="seal">IV</div>
+      <div>
+        <p class="eyebrow">AP Gov · Ch. 4</p>
+        <h1>The Legislative Branch</h1>
+        <p>CED topics 2.1–2.3 + redistricting · Unit 2 is 25–36% of the exam</p>
+      </div>
+    </div>
+
+    <div class="whip">
+      <div class="lbl"><span>Whip count · problems solved</span><b id="pct">0%</b></div>
+      <svg class="chamber" id="chamber" viewBox="0 0 220 116" role="img"><title>Progress shown as seats in a 100-seat chamber</title></svg>
+      <div class="sub" id="seatsub">0 of 100 seats · 60 invokes cloture</div>
+      <div class="peaks" id="peaks"></div>
+      <div class="peakaxis" id="peakaxis"></div>
+    </div>
+
+    <nav id="nav"></nav>
+    <button class="reset" id="reset">Clear all progress</button>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="wrap">
+        <span class="crumb" id="crumb">4.1</span>
+        <span class="spacer"></span>
+        <button class="tbtn" id="revealall">Show all solutions</button>
+      </div>
+    </div>
+    <div class="wrap" id="content"></div>
+  </main>
+
+</div>
+
+<script>
+/* ============================================================
+   STORAGE — remembers what he has solved, with safe fallbacks
+   ============================================================ */
+var KEY='apgov-ch4-congress-progress';
+var state={solved:{},mastered:{}};
+
+async function loadState(){
+  var raw=null;
+  try{ if(window.storage){ var r=await window.storage.get(KEY); if(r&&r.value) raw=r.value; } }catch(e){}
+  if(!raw){ try{ raw=localStorage.getItem(KEY); }catch(e){} }
+  if(raw){ try{ var p=JSON.parse(raw); state.solved=p.solved||{}; state.mastered=p.mastered||{}; }catch(e){} }
+}
+async function saveState(){
+  var s=JSON.stringify(state);
+  try{ if(window.storage) await window.storage.set(KEY,s); }catch(e){}
+  try{ localStorage.setItem(KEY,s); }catch(e){}
+}
+
+/* ============================================================
+   CHART BUILDERS — drawn to scale from the data passed in
+   ============================================================ */
+var MONO='font-family="JetBrains Mono, monospace"';
+var AX='#1d2433', GRID='#e7dcc4', LBL='#61656f';
+var PARTY={R:'#b23a3a',D:'#2a5caa',I:'#8b8b8b',V:'#e4d9c1'};
+
+/* Hemicycle: o.groups=[{n:53,c:'R',label:'Republicans'},...], o.rows (default 5) */
+function hemicycle(o){
+  var total=o.groups.reduce(function(a,g){return a+g.n;},0);
+  var rows=o.rows||(total>150?9:5);
+  var W=620,H=o.legendH===0?300:340,cx=310,cy=280,r0=110,r1=250;
+  var radii=[],sumR=0;
+  for(var i=0;i<rows;i++){var r=r0+(r1-r0)*i/(rows-1);radii.push(r);sumR+=r;}
+  var counts=radii.map(function(r){return Math.round(total*r/sumR);});
+  var diff=total-counts.reduce(function(a,b){return a+b;},0); counts[rows-1]+=diff;
+  var seats=[];
+  radii.forEach(function(r,i){
+    var n=counts[i];
+    for(var k=0;k<n;k++){var a=Math.PI-(n===1?Math.PI/2:Math.PI*k/(n-1));seats.push({a:a,x:cx+r*Math.cos(a),y:cy-r*Math.sin(a)});}
+  });
+  seats.sort(function(p,q){return q.a-p.a;});
+  var dot=Math.max(3.2,Math.min(9,(r1-r0)/rows*0.42));
+  var s='<svg class="fig" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" role="img"><title>'+(o.alt||'Chamber composition')+'</title>';
+  var idx=0;
+  o.groups.forEach(function(g){
+    for(var k=0;k<g.n;k++){var p=seats[idx++];s+='<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="'+dot.toFixed(1)+'" fill="'+(PARTY[g.c]||g.c)+'"/>';}
+  });
+  s+='<text x="'+cx+'" y="'+(cy-20)+'" text-anchor="middle" font-family="Fraunces, serif" font-weight="900" font-size="30" fill="'+AX+'">'+total+'</text>';
+  s+='<text x="'+cx+'" y="'+(cy+2)+'" text-anchor="middle" '+MONO+' font-size="10" fill="'+LBL+'">'+(o.center||'seats')+'</text>';
+  var lx=40;
+  o.groups.forEach(function(g){
+    s+='<rect x="'+lx+'" y="'+(H-26)+'" width="12" height="12" fill="'+(PARTY[g.c]||g.c)+'"/>';
+    var t=(g.label||g.c)+' · '+g.n;
+    s+='<text x="'+(lx+18)+'" y="'+(H-16)+'" '+MONO+' font-size="11" fill="'+AX+'">'+t+'</text>';
+    lx+=24+t.length*7.2;
+  });
+  s+='</svg>';
+  if(o.caption)s+='<p class="figcap">'+o.caption+'</p>';
+  return s;
+}
+
+/* Bar chart: o.items=[{label,value}], o.min,o.max,o.step, o.ylabel, o.unit, o.showVal */
+function barChart(o){
+  var W=620,H=o.h||320,L=58,R=18,T=26,B=o.rotate?86:56;
+  var pw=W-L-R,ph=H-T-B;
+  var min=o.min||0,max=o.max,step=o.step||10;
+  var Y=function(v){return T+ph-(v-min)/(max-min)*ph;};
+  var s='<svg class="fig" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" role="img"><title>'+(o.alt||'Bar chart')+'</title>';
+  for(var v=min;v<=max+1e-9;v+=step){
+    s+='<line x1="'+L+'" y1="'+Y(v).toFixed(1)+'" x2="'+(L+pw)+'" y2="'+Y(v).toFixed(1)+'" stroke="'+(v===0?AX:GRID)+'" stroke-width="'+(v===0?1.5:1)+'"/>';
+    s+='<text x="'+(L-8)+'" y="'+(Y(v)+3.5).toFixed(1)+'" text-anchor="end" '+MONO+' font-size="10" fill="'+LBL+'">'+(v>0&&o.signed?'+':'')+v+(o.unit||'')+'</text>';
+  }
+  s+='<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(T+ph)+'" stroke="'+AX+'" stroke-width="1.5"/>';
+  if(min>=0)s+='<line x1="'+L+'" y1="'+(T+ph)+'" x2="'+(L+pw)+'" y2="'+(T+ph)+'" stroke="'+AX+'" stroke-width="1.5"/>';
+  s+='<text x="14" y="'+(T+ph/2)+'" transform="rotate(-90 14 '+(T+ph/2)+')" text-anchor="middle" '+MONO+' font-size="10" fill="'+LBL+'">'+(o.ylabel||'')+'</text>';
+  var n=o.items.length,slot=pw/n,bw=Math.min(46,slot*0.62);
+  var z=Y(Math.max(0,min));
+  o.items.forEach(function(it,i){
+    var cx=L+slot*(i+0.5),y=Y(it.value),top=Math.min(y,z),h=Math.abs(z-y);
+    var col=it.color||(it.value<0?'var(--brick)':'var(--trace)');
+    s+='<rect x="'+(cx-bw/2).toFixed(1)+'" y="'+top.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+Math.max(h,1).toFixed(1)+'" fill="'+col+'"/>';
+    if(o.showVal){
+      var ty=it.value<0?y+14:y-6;
+      s+='<text x="'+cx.toFixed(1)+'" y="'+ty.toFixed(1)+'" text-anchor="middle" '+MONO+' font-size="10.5" font-weight="700" fill="'+AX+'">'+(it.value>0&&o.signed?'+':'')+it.value+(o.unit||'')+'</text>';
+    }
+    var ly=T+ph+16;
+    if(o.rotate){
+      s+='<text x="'+cx.toFixed(1)+'" y="'+ly+'" transform="rotate(-35 '+cx.toFixed(1)+' '+ly+')" text-anchor="end" '+MONO+' font-size="10" fill="'+AX+'">'+it.label+'</text>';
+    }else{
+      s+='<text x="'+cx.toFixed(1)+'" y="'+ly+'" text-anchor="middle" '+MONO+' font-size="10" fill="'+AX+'">'+it.label+'</text>';
+    }
+  });
+  if(o.xlabel)s+='<text x="'+(L+pw/2)+'" y="'+(H-8)+'" text-anchor="middle" '+MONO+' font-size="10.5" fill="'+LBL+'">'+o.xlabel+'</text>';
+  s+='</svg>';
+  if(o.caption)s+='<p class="figcap">'+o.caption+'</p>';
+  return s;
+}
+
+/* Grouped line chart: o.x=[labels], o.series=[{name,values,color,dash}], o.min,o.max,o.step */
+function lineChart(o){
+  var W=620,H=320,L=58,R=18,T=26,B=70;
+  var pw=W-L-R,ph=H-T-B,min=o.min,max=o.max,step=o.step;
+  var n=o.x.length;
+  var X=function(i){return L+pw*(i+0.5)/n;};
+  var Y=function(v){return T+ph-(v-min)/(max-min)*ph;};
+  var s='<svg class="fig" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" role="img"><title>'+(o.alt||'Line chart')+'</title>';
+  for(var v=min;v<=max+1e-9;v+=step){
+    s+='<line x1="'+L+'" y1="'+Y(v).toFixed(1)+'" x2="'+(L+pw)+'" y2="'+Y(v).toFixed(1)+'" stroke="'+GRID+'"/>';
+    s+='<text x="'+(L-8)+'" y="'+(Y(v)+3.5).toFixed(1)+'" text-anchor="end" '+MONO+' font-size="10" fill="'+LBL+'">'+v+(o.unit||'')+'</text>';
+  }
+  s+='<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(T+ph)+'" stroke="'+AX+'" stroke-width="1.5"/>';
+  s+='<line x1="'+L+'" y1="'+(T+ph)+'" x2="'+(L+pw)+'" y2="'+(T+ph)+'" stroke="'+AX+'" stroke-width="1.5"/>';
+  s+='<text x="14" y="'+(T+ph/2)+'" transform="rotate(-90 14 '+(T+ph/2)+')" text-anchor="middle" '+MONO+' font-size="10" fill="'+LBL+'">'+(o.ylabel||'')+'</text>';
+  o.x.forEach(function(l,i){s+='<text x="'+X(i).toFixed(1)+'" y="'+(T+ph+16)+'" text-anchor="middle" '+MONO+' font-size="10" fill="'+AX+'">'+l+'</text>';});
+  var lx=L+10;
+  o.series.forEach(function(se){
+    var d=se.values.map(function(v,i){return (i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1);}).join(' ');
+    s+='<path d="'+d+'" fill="none" stroke="'+se.color+'" stroke-width="2.4"'+(se.dash?' stroke-dasharray="6 4"':'')+'/>';
+    se.values.forEach(function(v,i){s+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(v).toFixed(1)+'" r="3.6" fill="'+se.color+'"/>';});
+    s+='<line x1="'+lx+'" y1="'+(H-16)+'" x2="'+(lx+22)+'" y2="'+(H-16)+'" stroke="'+se.color+'" stroke-width="2.4"'+(se.dash?' stroke-dasharray="6 4"':'')+'/>';
+    s+='<text x="'+(lx+28)+'" y="'+(H-12)+'" '+MONO+' font-size="11" fill="'+AX+'">'+se.name+'</text>';
+    lx+=60+se.name.length*7;
+  });
+  s+='</svg>';
+  if(o.caption)s+='<p class="figcap">'+o.caption+'</p>';
+  return s;
+}
+
+/* Gerrymander grid: o.grid=['RRDDR',...] voters, o.districts=['11223',...] same shape */
+function gerry(o){
+  var rows=o.grid.length,cols=o.grid[0].length,c=o.cell||44;
+  var W=cols*c+40,H=rows*c+40,ox=20,oy=20;
+  var s='<svg class="fig" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" role="img" style="max-width:'+Math.min(W,420)+'px;margin-left:auto;margin-right:auto"><title>'+(o.alt||'District map')+'</title>';
+  for(var r=0;r<rows;r++)for(var k=0;k<cols;k++){
+    var v=o.grid[r][k],x=ox+k*c,y=oy+r*c;
+    s+='<rect x="'+x+'" y="'+y+'" width="'+c+'" height="'+c+'" fill="'+(v==='R'?'#f3d6d2':'#d6e0f2')+'" stroke="#fffcf5" stroke-width="1"/>';
+    s+='<text x="'+(x+c/2)+'" y="'+(y+c/2+5)+'" text-anchor="middle" '+MONO+' font-size="14" font-weight="700" fill="'+(v==='R'?PARTY.R:PARTY.D)+'">'+v+'</text>';
+  }
+  if(o.districts){
+    var D=o.districts;
+    for(var r2=0;r2<rows;r2++)for(var k2=0;k2<cols;k2++){
+      var x2=ox+k2*c,y2=oy+r2*c,d=D[r2][k2];
+      if(k2===cols-1||D[r2][k2+1]!==d) s+='<line x1="'+(x2+c)+'" y1="'+y2+'" x2="'+(x2+c)+'" y2="'+(y2+c)+'" stroke="'+AX+'" stroke-width="4" stroke-linecap="round"/>';
+      if(k2===0) s+='<line x1="'+x2+'" y1="'+y2+'" x2="'+x2+'" y2="'+(y2+c)+'" stroke="'+AX+'" stroke-width="4" stroke-linecap="round"/>';
+      if(r2===rows-1||D[r2+1][k2]!==d) s+='<line x1="'+x2+'" y1="'+(y2+c)+'" x2="'+(x2+c)+'" y2="'+(y2+c)+'" stroke="'+AX+'" stroke-width="4" stroke-linecap="round"/>';
+      if(r2===0) s+='<line x1="'+x2+'" y1="'+y2+'" x2="'+(x2+c)+'" y2="'+y2+'" stroke="'+AX+'" stroke-width="4" stroke-linecap="round"/>';
+    }
+  }
+  s+='</svg>';
+  if(o.caption)s+='<p class="figcap">'+o.caption+'</p>';
+  return s;
+}
+
+/* The bill pipeline — fixed teaching figure */
+function billMap(){
+  var W=620,H=300;
+  var s='<svg class="fig" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" role="img"><title>How a bill becomes a law</title>';
+  s+='<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="'+AX+'"/></marker></defs>';
+  function box(x,y,w,t1,t2,fill,tc){
+    var h=46;
+    var r='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+fill+'" stroke="'+AX+'" stroke-width="1.2"/>';
+    r+='<text x="'+(x+w/2)+'" y="'+(y+(t2?19:28))+'" text-anchor="middle" '+MONO+' font-size="10.5" font-weight="700" fill="'+(tc||AX)+'">'+t1+'</text>';
+    if(t2)r+='<text x="'+(x+w/2)+'" y="'+(y+34)+'" text-anchor="middle" '+MONO+' font-size="9" fill="'+(tc||LBL)+'">'+t2+'</text>';
+    return r;
+  }
+  function arrow(x1,y1,x2,y2){return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+AX+'" stroke-width="1.4" marker-end="url(#ar)"/>';}
+  s+='<text x="14" y="30" '+MONO+' font-size="10" font-weight="700" fill="'+PARTY.D+'">HOUSE</text>';
+  s+='<text x="14" y="140" '+MONO+' font-size="10" font-weight="700" fill="'+PARTY.R+'">SENATE</text>';
+  s+=box(14,40,86,'H.R. ###','introduced','#fffcf5');
+  s+=box(122,40,100,'Committee','sub → markup','#fffcf5');
+  s+=box(244,40,96,'RULES CMTE','open/closed','#f3e8cc');
+  s+=box(362,40,90,'Floor','218 to pass','#fffcf5');
+  s+=box(14,150,86,'S. ###','introduced','#fffcf5');
+  s+=box(122,150,100,'Committee','sub → markup','#fffcf5');
+  s+=box(244,150,96,'Floor','filibuster?','#f6e1dc');
+  s+=box(362,150,90,'Cloture','60 votes','#f6e1dc');
+  s+=arrow(100,63,120,63)+arrow(222,63,242,63)+arrow(340,63,360,63);
+  s+=arrow(100,173,120,173)+arrow(222,173,242,173)+arrow(340,173,360,173);
+  s+=box(478,95,128,'Conference','or ping-pong','#fffcf5');
+  s+=arrow(452,63,500,93)+arrow(452,173,500,143);
+  s+=box(478,222,128,'PRESIDENT','10 days (no Sun.)','#14213d','#f3ead6');
+  s+=arrow(542,141,542,220);
+  s+=box(244,236,96,'Veto','override 2/3','#f6e1dc');
+  s+=box(362,236,90,'LAW','signed / 10 days','#e0eedf');
+  s+=arrow(476,252,454,252);
+  s+='<path d="M478 262 C 420 296, 330 296, 300 284" fill="none" stroke="'+AX+'" stroke-width="1.4" marker-end="url(#ar)"/>';
+  s+='<text x="14" y="252" '+MONO+' font-size="9.5" fill="'+LBL+'">pocket veto:</text>';
+  s+='<text x="14" y="266" '+MONO+' font-size="9.5" fill="'+LBL+'">Congress adjourns,</text>';
+  s+='<text x="14" y="280" '+MONO+' font-size="9.5" fill="'+LBL+'">no override possible</text>';
+  s+='<text x="126" y="112" '+MONO+' font-size="9.5" fill="'+PARTY.R+'">↑ most bills die in committee</text>';
+  s+='</svg>';
+  s+='<p class="figcap">Either chamber can go first (except revenue bills, which start in the House). Both must pass identical text.</p>';
+  return s;
+}
+
+var TOPICS=[
+/* ---------------------------------------------------------- 4.1 */
+{
+ id:'t41', num:'4.1', title:'House vs. Senate',
+ lede:'The framers built two chambers on purpose: one close to the public mood, one insulated from it. Almost every difference between the House and Senate traces back to that single design choice.',
+ body:`
+ <h3>Why two chambers at all</h3>
+ <p>Article I creates a <b>bicameral</b> legislature. At the Constitutional Convention (1787), the large states backed the <b>Virginia Plan</b> (representation by population) and the small states backed the <b>New Jersey Plan</b> (equal representation per state). The <b>Great Compromise</b> (also called the <b>Connecticut Compromise</b>, brokered by <b>Roger Sherman</b>) gave each side one chamber: the House by population, the Senate with two per state.</p>
+ <p>Bicameralism is also a <b>check on majority power</b>. In <b>Federalist No. 51</b>, Madison argues that "in republican government, the legislative authority necessarily predominates," so the remedy is to "divide the legislature into different branches" with different modes of election. Two chambers with different constituencies and terms make it harder for one passing majority to take over — and that's also why passing laws is slow.</p>
+ <p>The story (probably apocryphal) is that Washington told Jefferson the Senate was the saucer you pour hot tea into to cool it. The "<b>cooling saucer</b>" is a good line to drop when explaining why the Senate has longer terms and looser debate rules.</p>
+
+ <h3>The comparison you have to know cold</h3>
+ <table>
+  <thead><tr><th></th><th>House of Representatives</th><th>Senate</th></tr></thead>
+  <tbody>
+   <tr><td>Size</td><td>435 voting members (fixed by the Reapportionment Act of 1929) + 6 non-voting delegates (D.C., Puerto Rico, Guam, etc.)</td><td>100 (2 per state)</td></tr>
+   <tr><td>Term</td><td>2 years; entire House up every election</td><td>6 years; staggered, ~⅓ up every 2 years</td></tr>
+   <tr><td>Minimum age</td><td>25</td><td>30</td></tr>
+   <tr><td>Citizenship</td><td>7 years</td><td>9 years</td></tr>
+   <tr><td>Residency</td><td>Inhabitant of the state (not required to live in the district)</td><td>Inhabitant of the state</td></tr>
+   <tr><td>Constituency</td><td>A district (~761,000 people after the 2020 census)</td><td>The whole state</td></tr>
+   <tr><td>Originally chosen by</td><td>The people</td><td>State legislatures, until the <b>17th Amendment (1913)</b> made it a popular vote</td></tr>
+   <tr><td>Debate</td><td>Strict limits, set by the Rules Committee</td><td>Unlimited unless 60 vote for cloture — the filibuster lives here</td></tr>
+   <tr><td>Presiding officer</td><td>Speaker of the House</td><td>Vice President (formally); President pro tempore in practice</td></tr>
+   <tr><td>Character</td><td>More responsive to short-term opinion, more partisan, more rule-bound, more hierarchical</td><td>More deliberative, more individualistic, more insulated</td></tr>
+  </tbody>
+ </table>
+
+ <h3>Exclusive powers — the free MCQ points</h3>
+ <div class="cards">
+  <div class="card"><div class="k">House only</div><div class="v"><ul style="margin:0">
+   <li><b>Revenue bills</b> must start here (Origination Clause, Art. I §7). By tradition, appropriations bills do too.</li>
+   <li><b>Impeach</b> (formally accuse) federal officials — simple majority.</li>
+   <li>Choose the <b>President</b> if no one wins an Electoral College majority (12th Amendment; each state delegation gets <b>one</b> vote). Happened in 1800 and 1824.</li>
+  </ul></div></div>
+  <div class="card"><div class="k">Senate only</div><div class="v"><ul style="margin:0">
+   <li><b>Try</b> impeachments; <b>2/3 (67)</b> to convict and remove. Chief Justice presides if the President is on trial.</li>
+   <li><b>Advice and consent</b>: confirm judges, cabinet secretaries, ambassadors — simple majority.</li>
+   <li><b>Ratify treaties</b> — 2/3 of senators present.</li>
+   <li>Choose the <b>Vice President</b> if no Electoral College majority.</li>
+  </ul></div></div>
+ </div>
+
+ <h3>Why term length changes behavior</h3>
+ <p>A House member elected in November starts running again almost immediately. That makes the House the chamber most sensitive to public opinion and to its specific district — the framers called it "the people's house." A senator only faces voters every six years and represents a whole (usually more diverse) state, so senators can take positions that are unpopular in the short term. The staggered Senate terms also mean that one wave election can flip the whole House but at most about a third of the Senate.</p>
+ <p>The Senate's equal representation cuts the other way: Wyoming (≈590,000 people) and California (≈39 million) each get two senators, so a senator from a small state represents far fewer people. This is the most-cited "undemocratic" feature of Congress, and it's a direct product of the Great Compromise.</p>
+
+ <h3>Where things stand now (119th Congress, 2025–2027)</h3>
+ <ul>
+  <li><b>Senate:</b> 53 Republicans, 45 Democrats, 2 independents (Bernie Sanders, Angus King) who caucus with the Democrats.</li>
+  <li><b>House:</b> a narrow Republican majority; it opened at 220–215 and has hovered within a few seats of that as members resign and special elections fill seats.</li>
+  <li>Unified government: Republican House, Senate, and presidency. The 2026 midterms on November 3, 2026 put the whole House and 35 Senate seats on the ballot.</li>
+ </ul>
+
+ <div class="trap">
+  <div class="h">Where points get lost</div>
+  <p><b>Impeach ≠ remove.</b> The House impeaches (accuses); the Senate convicts and removes. Andrew Johnson (1868), Bill Clinton (1998), and Donald Trump (2019 and 2021) were all impeached — none was removed. Nixon resigned in 1974 before the House voted.</p>
+  <p><b>"Revenue" means taxes, not all bills.</b> Any other bill can start in either chamber. MCQs love "all bills must originate in the House" as a wrong answer.</p>
+  <p><b>Treaties ≠ appointments.</b> Treaties need 2/3 of the Senate; appointments need a simple majority. The House has no formal role in either.</p>
+ </div>
+
+ <div class="frq">
+  <div class="h">FRQ language that scores</div>
+  <p>"Because House members serve <b>two-year terms</b> and represent smaller districts, they are more likely to respond to <b>short-term shifts in constituent opinion</b>, whereas senators, with <b>six-year staggered terms</b>, are more insulated and can take a longer view."</p>
+ </div>
+ `,
+ problems:[
+  {kind:'Exclusive powers',
+   q:`Which of the following is a power held by the Senate but <b>not</b> the House?<br>(A) Initiating revenue bills &nbsp;(B) Bringing articles of impeachment &nbsp;(C) Confirming an ambassador &nbsp;(D) Overriding a presidential veto`,
+   sol:`<ol>
+    <li>(A) and (B) are House-only powers — eliminate.</li>
+    <li>(D) needs <b>both</b> chambers at 2/3 — it isn't exclusive to either.</li>
+    <li>(C) Advice and consent on appointments belongs only to the Senate.</li></ol>
+    <p>The trap is (D): students remember "the Senate is the 2/3 chamber" and forget that a veto override needs 2/3 in <b>both</b>.</p>
+    <div class="ans">(C) Confirming an ambassador</div>`},
+
+  {kind:'Read the chamber',
+   q:`The diagram shows the partisan makeup of the Senate at the start of the 119th Congress (independents caucus with Democrats). Assume every senator votes with their caucus.${hemicycle({groups:[{n:53,c:'R',label:'Republican'},{n:45,c:'D',label:'Democrat'},{n:2,c:'I',label:'Independent'}],center:'senators',caption:'U.S. Senate, January 2025'})}Which of these can the majority party accomplish <b>alone</b>? (a) confirm a cabinet secretary (b) end a filibuster on an ordinary bill (c) ratify a treaty (d) convict an impeached official.`,
+   sol:`<ol>
+    <li>Count the majority: 53 Republicans. The minority caucus: 45 + 2 = 47.</li>
+    <li>(a) Confirmation needs a simple majority (51, or 50 + VP). 53 ≥ 51 → <b>yes</b>.</li>
+    <li>(b) Cloture needs 60. 53 < 60 → <b>no</b>; they'd need 7 minority votes.</li>
+    <li>(c) Treaty ratification needs 2/3 of those present — 67 if all 100 vote. <b>No</b>.</li>
+    <li>(d) Conviction needs 2/3 — 67. <b>No</b>.</li></ol>
+    <div class="work">simple majority  51   ✓ 53
+cloture          60   ✗ (needs 7 more)
+treaty / convict 67   ✗ (needs 14 more)</div>
+    <p>This is exactly why the filibuster matters: a 53-seat majority controls confirmations but not ordinary legislation.</p>
+    <div class="ans">Only (a). Cloture needs 60; treaties and convictions need 67.</div>`},
+
+  {kind:'Concept application',
+   q:`<p>In 2024, a House member from a swing district voted against her party's leadership on a spending bill, citing a flood of calls from constituents. A senator from the same state, not up for reelection until 2030, voted with party leadership.</p><p>(A) Describe one constitutional difference between the House and Senate that helps explain the different votes. (B) Explain how that difference affects how responsive each member is to constituents.</p>`,
+   sol:`<ol>
+    <li><b>(A) Describe:</b> House members serve two-year terms and represent a single district; senators serve six-year staggered terms and represent the whole state.</li>
+    <li><b>(B) Explain:</b> Because the House member faces voters again in under two years, a spike in constituent calls is a direct electoral threat, so she acts as a <b>delegate</b>. The senator won't face voters for six years, so the same pressure is distant and diluted across a whole state, freeing her to follow party leadership or act as a <b>trustee</b>.</li></ol>
+    <p>Scoring note: "Describe" needs a specific feature, not "the House is different." "Explain" needs the <b>because → so</b> chain linking that feature to the behavior in the scenario.</p>
+    <div class="ans">Two-year vs. six-year terms (and district vs. statewide constituency) → House members are more responsive to immediate constituent pressure.</div>`},
+
+  {kind:'Impeachment math',
+   q:'The House votes 230–197 to impeach a federal judge. The Senate then votes 61–39 to convict. What happens to the judge?',
+   sol:`<ol>
+    <li>House: simple majority needed. 230 > 197, so the judge <b>is impeached</b>.</li>
+    <li>Senate: 2/3 of senators present needed. 2/3 of 100 = 66.67 → 67 votes.</li>
+    <li>61 < 67, so the judge is <b>acquitted</b> and stays in office.</li></ol>
+    <p>Real parallel: at Trump's second impeachment trial (Feb. 2021) the Senate voted <b>57–43</b> to convict — a bipartisan majority, but 10 short of 67, so it counted as an acquittal. Fifteen federal judges have been impeached in U.S. history; eight were convicted and removed.</p>
+    <div class="ans">Impeached but acquitted — a Senate majority isn't enough; conviction requires 67.</div>`},
+
+  {kind:'Origin of the design',
+   q:'Explain how the Great Compromise shaped the structure of Congress, and identify one consequence of that structure that is still debated today.',
+   sol:`<ol>
+    <li>Large states wanted population-based representation (Virginia Plan); small states wanted equal representation (New Jersey Plan).</li>
+    <li>The Great (Connecticut) Compromise created a House apportioned by population and a Senate with two members per state.</li>
+    <li>Consequence: small-state overrepresentation in the Senate. A majority of senators can represent well under half of the U.S. population, which matters for confirmations and for the filibuster.</li></ol>
+    <div class="ans">The compromise produced a population-based House and an equal-representation Senate; the resulting small-state advantage in the Senate is still debated.</div>`}
+ ]
+},
+
+/* ---------------------------------------------------------- 4.2 */
+{
+ id:'t42', num:'4.2', title:'Powers of Congress',
+ lede:'Article I gives Congress a list of powers, then one clause that stretches the list. Most fights over federal power are really fights over how far that stretch goes.',
+ body:`
+ <h3>Enumerated (expressed) powers — Article I, Section 8</h3>
+ <p>These are written out explicitly. The ones the AP exam cares about most:</p>
+ <div class="cards">
+  <div class="card"><div class="k">Money</div><div class="v">Lay and collect <b>taxes</b>; <b>borrow</b> money; <b>coin</b> money; spend for the "general welfare." Art. I §9 adds: no money leaves the Treasury without an appropriation made by law. Together this is the <b>power of the purse</b>.</div></div>
+  <div class="card"><div class="k">Commerce</div><div class="v">Regulate commerce with foreign nations, <b>among the several states</b>, and with Native American tribes. The <b>Commerce Clause</b> is the basis for most modern federal regulation.</div></div>
+  <div class="card"><div class="k">War & military</div><div class="v"><b>Declare war</b>; raise and support armies; provide and maintain a navy; make rules for the armed forces; call up the militia.</div></div>
+  <div class="card"><div class="k">Other</div><div class="v">Establish post offices; set naturalization rules; grant patents and copyrights; create federal courts below the Supreme Court.</div></div>
+ </div>
+
+ <h3>Implied powers and the Necessary and Proper Clause</h3>
+ <p>The final clause of §8 lets Congress make all laws "<b>necessary and proper</b>" for carrying out its listed powers. It's nicknamed the <b>elastic clause</b> because it stretches Congress's reach to powers the Constitution never names.</p>
+ <p><b>McCulloch v. Maryland (1819)</b> is the landmark case. Chief Justice John Marshall ruled that Congress could create a national bank. It isn't listed, but it is a reasonable means of carrying out the listed powers to tax, borrow, and regulate commerce. Maryland also couldn't tax the bank, because "the power to tax involves the power to destroy" and federal law is supreme (<b>Supremacy Clause</b>).</p>
+ <p>The Anti-Federalist <b>Brutus No. 1</b> saw this coming. It warned that the Necessary and Proper and Supremacy Clauses would let the national government swallow the states. That's a strong piece of evidence if an argument essay asks about congressional power.</p>
+ <p>The Commerce Clause has limits. In <b>United States v. Lopez (1995)</b>, the Court struck down the Gun-Free School Zones Act because carrying a gun near a school is not economic activity that substantially affects interstate commerce. This was the first time since the New Deal that the Court had limited the Commerce Clause.</p>
+
+ <h3>Non-legislative powers</h3>
+ <table>
+  <thead><tr><th>Power</th><th>What it is</th><th>Namedrop</th></tr></thead>
+  <tbody>
+   <tr><td>Oversight</td><td>Hearings, investigations, subpoenas, and budget control over the executive branch</td><td>Senate Watergate hearings (1973); House Jan. 6 Committee (2021–22)</td></tr>
+   <tr><td>Impeachment</td><td>House accuses, Senate tries (Art. I §2–3)</td><td>Johnson 1868, Clinton 1998, Trump 2019 & 2021</td></tr>
+   <tr><td>Confirmation</td><td>Senate approves nominees</td><td>Robert Bork rejected 58–42 (1987); VP JD Vance broke a 50–50 tie to confirm Pete Hegseth as Defense Secretary (Jan. 2025)</td></tr>
+   <tr><td>Treaty ratification</td><td>Senate, 2/3</td><td>Treaty of Versailles rejected (1919–20)</td></tr>
+   <tr><td>Amendments</td><td>Propose by 2/3 of both chambers</td><td>27 amendments ratified</td></tr>
+   <tr><td>Courts</td><td>Create lower courts, set their jurisdiction, fix the number of justices</td><td>Judiciary Act of 1789; FDR's failed 1937 court-packing plan</td></tr>
+  </tbody>
+ </table>
+
+ <h3>War powers: the tug-of-war with the President</h3>
+ <p>Congress <b>declares</b> war; the President is <b>commander in chief</b>. Congress has formally declared war in only five conflicts (the last in WWII). Since then, presidents have sent troops into Korea, Vietnam, Iraq, and elsewhere without a declaration. The <b>War Powers Resolution (1973)</b>, passed over Nixon's veto, requires the President to <b>notify Congress within 48 hours</b> of deploying troops and to <b>withdraw them within 60 days</b> (plus a 30-day withdrawal period) unless Congress authorizes the action. Presidents of both parties have called it unconstitutional, and Congress rarely enforces it. Congress more often passes an <b>Authorization for Use of Military Force (AUMF)</b>. The 2001 AUMF passed after 9/11 has been stretched to cover operations for over two decades.</p>
+
+ <h3>Checks — both directions</h3>
+ <div class="work">CONGRESS checks PRESIDENT:  override veto (2/3), impeach/remove, confirm/reject nominees,
+                            ratify/reject treaties, power of the purse, oversight hearings
+CONGRESS checks COURTS:     confirm judges, create lower courts, set jurisdiction,
+                            propose amendments to overturn rulings, impeach judges
+PRESIDENT checks CONGRESS:  veto, call special sessions, signing statements, bully pulpit
+COURTS check CONGRESS:      judicial review — strike down laws (Marbury v. Madison, 1803)</div>
+
+ <div class="trap">
+  <div class="h">Where points get lost</div>
+  <p><b>The elastic clause is Necessary and Proper, not the Commerce Clause.</b> The Commerce Clause is an enumerated power that has been read broadly. Necessary and Proper is the clause that creates implied powers.</p>
+  <p><b>"Implied" doesn't mean "anything goes."</b> An implied power has to connect to an enumerated one. Marshall's test in McCulloch: "Let the end be legitimate… all means which are appropriate… are constitutional."</p>
+  <p><b>The War Powers Resolution is a law, not an amendment.</b> It was passed over Nixon's veto, and no court has ever enforced it against a president.</p>
+ </div>
+
+ <div class="frq">
+  <div class="h">FRQ language that scores</div>
+  <p>"Congress can check the President's [action] by using its <b>power of the purse</b> to refuse to appropriate funds, which limits the President's ability to [carry out policy] because under Article I no money can be spent without an appropriation made by law."</p>
+ </div>
+ `,
+ problems:[
+  {kind:'Enumerated vs. implied',
+   q:'Classify each as enumerated or implied: (1) coining money (2) creating the Federal Reserve (3) declaring war (4) establishing a national minimum wage (5) creating an Air Force.',
+   sol:`<ol>
+    <li>Coining money — <b>enumerated</b> (Art. I §8).</li>
+    <li>Federal Reserve — <b>implied</b>. Justified by the powers to coin money and regulate its value, via Necessary and Proper; the direct descendant of McCulloch's national bank.</li>
+    <li>Declaring war — <b>enumerated</b>.</li>
+    <li>Minimum wage — <b>implied</b>, through the Commerce Clause (labor affects interstate commerce) plus Necessary and Proper.</li>
+    <li>Air Force — <b>implied</b>. The Constitution mentions only armies and a navy (planes didn't exist); it's justified as "raising and supporting armies."</li></ol>
+    <div class="ans">Enumerated: 1, 3. Implied: 2, 4, 5.</div>`},
+
+  {kind:'Foundational document',
+   q:'Which Anti-Federalist argument is most directly supported by the ruling in McCulloch v. Maryland?',
+   sol:`<ol>
+    <li>McCulloch used the Necessary and Proper Clause to expand federal power and the Supremacy Clause to block a state tax.</li>
+    <li><b>Brutus No. 1</b> warned that exactly those two clauses would give Congress nearly unlimited power and shrink the states.</li>
+    <li>From the Anti-Federalist perspective, McCulloch confirms the warning.</li></ol>
+    <div class="ans">Brutus No. 1's warning that the Necessary and Proper and Supremacy Clauses would let the national government overpower the states.</div>`},
+
+  {kind:'War powers scenario',
+   q:'A president orders airstrikes against a foreign militia without congressional authorization and notifies congressional leaders 36 hours later. Seventy days pass without any vote in Congress. Under the War Powers Resolution, what should have happened, and what is Congress\'s most effective real-world tool?',
+   sol:`<ol>
+    <li>48-hour notification: met (36 hours).</li>
+    <li>60-day clock: without authorization, forces should begin withdrawing by day 60, with up to 30 more days to complete it. At day 70 the President is inside the 30-day withdrawal window but should already be pulling out.</li>
+    <li>Enforcement: the WPR has never been enforced by a court. Congress's most effective tool is the <b>power of the purse</b> — cutting off funding, as it did in Vietnam with the 1973 Case–Church Amendment.</li></ol>
+    <div class="ans">Withdrawal should have begun at day 60 (within a 30-day window). Congress's strongest lever is refusing to fund the operation.</div>`},
+
+  {kind:'Checks & balances',
+   q:'The Supreme Court strikes down a federal law. Identify two ways Congress could respond.',
+   sol:`<ol>
+    <li>If the ruling was statutory interpretation, <b>rewrite the law</b> to fix the problem the Court identified. (After <i>Ledbetter v. Goodyear</i> (2007), Congress passed the Lilly Ledbetter Fair Pay Act of 2009.)</li>
+    <li>If the ruling was constitutional, <b>propose a constitutional amendment</b> (2/3 of both chambers, then 3/4 of the states).</li>
+    <li>Other options: change the Court's appellate jurisdiction, or shape future rulings through confirmations.</li></ol>
+    <div class="ans">Pass a new or revised law; propose an amendment (also: limit jurisdiction, confirm different judges).</div>`},
+
+  {kind:'Commerce Clause limit',
+   q:'Explain how United States v. Lopez (1995) changed the relationship between Congress and the states.',
+   sol:`<ol>
+    <li>From the New Deal until 1995, the Court let Congress use the Commerce Clause to regulate almost anything with a loose economic connection.</li>
+    <li>In Lopez, the Court held that possessing a gun in a school zone is not economic activity that substantially affects interstate commerce, and struck down the Gun-Free School Zones Act of 1990.</li>
+    <li>Effect: it limited Congress's implied reach and returned some policing power to the states — a win for <b>federalism</b>.</li></ol>
+    <div class="ans">Lopez set limits on the Commerce Clause, shrinking Congress's power and protecting state authority.</div>`}
+ ]
+},
+
+/* ---------------------------------------------------------- 4.3 */
+{
+ id:'t43', num:'4.3', title:'Congressional Leadership',
+ lede:'The Constitution names only a few congressional leaders. Everything else, including the real power, comes from the parties. Whoever controls the majority controls the agenda.',
+ body:`
+ <h3>Separate chambers, separate leadership</h3>
+ <p>The House and Senate operate independently, with separate chambers, votes, offices, and operations, so each has its own leadership. Leaders are chosen by the <b>party caucus</b> (Democrats) or <b>conference</b> (Republicans) before each new Congress, and then (for the Speaker) ratified by a floor vote.</p>
+
+ <h3>House leadership</h3>
+ <table>
+  <thead><tr><th>Position</th><th>Role</th><th>Now (119th Congress)</th></tr></thead>
+  <tbody>
+   <tr><td>Speaker of the House</td><td>Only House leader named in the Constitution. Presides, recognizes members to speak, refers bills to committee, puts motions to a vote, appoints select and conference committee members and the majority's Rules Committee members, and signs all passed bills. Can vote but rarely does. <b>2nd in line for the presidency.</b> The most powerful person in Congress.</td><td>Mike Johnson (R-LA)</td></tr>
+   <tr><td>Majority Leader</td><td>Floor leader; sets the floor schedule, runs party strategy, serves as party spokesperson.</td><td>Steve Scalise (R-LA)</td></tr>
+   <tr><td>Majority Whip</td><td>Assistant floor leader; counts votes and makes sure members show up.</td><td>Tom Emmer (R-MN)</td></tr>
+   <tr><td>Minority Leader</td><td>Leads the opposition; would be the party's Speaker candidate.</td><td>Hakeem Jeffries (D-NY)</td></tr>
+   <tr><td>Minority Whip</td><td>Counts minority votes.</td><td>Katherine Clark (D-MA)</td></tr>
+  </tbody>
+ </table>
+ <p>The word "whip" comes from British fox hunting, where the "whipper-in" kept the hounds together as a pack.</p>
+
+ <h3>Senate leadership</h3>
+ <table>
+  <thead><tr><th>Position</th><th>Role</th><th>Now</th></tr></thead>
+  <tbody>
+   <tr><td>President of the Senate</td><td>The <b>Vice President</b>. Not a member, not necessarily from the majority party. Votes <b>only to break a tie</b> and can't join debate. Rarely present.</td><td>JD Vance</td></tr>
+   <tr><td>President pro tempore</td><td>Presides when the VP is absent (almost always), though the job is usually handed off to junior senators. By custom, the longest-serving member of the majority party. <b>3rd in line</b> for the presidency. Largely ceremonial.</td><td>Chuck Grassley (R-IA)</td></tr>
+   <tr><td>Majority Leader</td><td><b>The most powerful senator.</b> Has the "right of first recognition" (speaks first), controls which bills reach the floor, files for cloture, and negotiates unanimous consent agreements.</td><td>John Thune (R-SD)</td></tr>
+   <tr><td>Majority Whip</td><td>Counts votes.</td><td>John Barrasso (R-WY)</td></tr>
+   <tr><td>Minority Leader</td><td>Leads the opposition; the filibuster gives this job real leverage.</td><td>Chuck Schumer (D-NY)</td></tr>
+   <tr><td>Minority Whip</td><td>Counts minority votes.</td><td>Dick Durbin (D-IL)</td></tr>
+  </tbody>
+ </table>
+
+ <h3>Line of succession (Presidential Succession Act of 1947)</h3>
+ <div class="work">1. Vice President        (JD Vance)
+2. Speaker of the House  (Mike Johnson)
+3. President pro tempore (Chuck Grassley)
+4. Secretary of State → other cabinet secretaries, in order of department creation</div>
+
+ <h3>Namedroppable episodes</h3>
+ <ul>
+  <li><b>January 2023:</b> Kevin McCarthy needed <b>15 ballots</b> to become Speaker — the most since 1859 — because a small bloc of Republicans held out. To win them over he agreed to let a <b>single member</b> file a <b>motion to vacate</b> the chair.</li>
+  <li><b>October 3, 2023:</b> Rep. Matt Gaetz filed that motion and McCarthy was removed <b>216–210</b>, the first Speaker ever ousted mid-term. The House couldn't legislate for three weeks until Mike Johnson was elected Speaker on October 25, 2023.</li>
+  <li><b>Hakeem Jeffries</b> set the record for the longest House floor speech (8 hours, 44 minutes, July 2025) against the One Big Beautiful Bill Act. Party leaders can speak as long as they want using the "magic minute."</li>
+  <li><b>Nancy Pelosi</b> (D-CA) was the first woman Speaker (2007–11 and 2019–23).</li>
+ </ul>
+
+ <h3>Why party leaders have so much power</h3>
+ <p>Leaders control the <b>agenda</b> (which bills reach the floor), <b>committee assignments</b> (which members get prime seats), and <b>resources</b> (campaign money, staff, floor time). The majority party's control of the agenda is sometimes called "negative agenda control": a bill the majority leadership opposes usually never gets a vote. In the House this was formalized as the informal <b>Hastert Rule</b> — the Speaker doesn't bring a bill to the floor unless a "majority of the majority" supports it.</p>
+
+ <div class="trap">
+  <div class="h">Where points get lost</div>
+  <p><b>The VP is not the Senate's real leader.</b> The Majority Leader is. The VP's only real legislative power is breaking ties — used for the One Big Beautiful Bill Act, which passed the Senate 51–50 on July 1, 2025.</p>
+  <p><b>President pro tempore ≠ Majority Leader.</b> The pro tem is a seniority honor with the gavel; the Majority Leader controls the floor. MCQs switch these constantly.</p>
+  <p><b>The Speaker is the only leader in either chamber who is both the presiding officer and the party leader.</b> In the Senate those roles are split, which is one reason the Senate is less hierarchical.</p>
+ </div>
+
+ <div class="frq">
+  <div class="h">FRQ language that scores</div>
+  <p>"The Speaker of the House can [refer the bill to an unfriendly committee / refuse to schedule a floor vote / appoint loyal members to the Rules Committee], which makes it less likely that the bill passes because the <b>majority party controls the legislative agenda</b>."</p>
+ </div>
+ `,
+ problems:[
+  {kind:'Match the leader',
+   q:'Name the position: (1) breaks tie votes in the Senate (2) third in the line of succession (3) decides which bills reach the Senate floor (4) counts votes for the House majority (5) refers House bills to committee.',
+   sol:`<ol>
+    <li>Vice President (as President of the Senate)</li>
+    <li>President pro tempore of the Senate</li>
+    <li>Senate Majority Leader</li>
+    <li>House Majority Whip</li>
+    <li>Speaker of the House</li></ol>
+    <div class="ans">VP · President pro tem · Senate Majority Leader · Majority Whip · Speaker</div>`},
+
+  {kind:'Tie-break math',
+   q:`The Senate is split 53–47. On a party-line bill, three majority-party senators defect and vote with the minority. What happens? What if four defect?`,
+   sol:`<ol>
+    <li>Three defect: 50 yes, 50 no → a tie. The VP casts the deciding vote (assuming the VP is from the majority party) → passes <b>51–50</b>. This is how the One Big Beautiful Bill Act passed in July 2025: three Republicans (Tillis, Paul, Collins) voted no, and VP Vance broke the tie.</li>
+    <li>Four defect: 49 yes, 51 no → fails. The VP only votes on ties.</li>
+    <li>Caveat: this only applies to majority-vote questions — budget reconciliation, nominations. A regular bill still faces the 60-vote cloture threshold.</li></ol>
+    <div class="ans">3 defections → 50–50, VP breaks the tie, passes. 4 defections → fails 49–51.</div>`},
+
+  {kind:'Concept application',
+   q:`<p>In October 2023 the House spent three weeks without a Speaker after Kevin McCarthy was removed by a motion to vacate. During that time the House could not pass any legislation.</p><p>(A) Describe one power of the Speaker of the House. (B) Explain why the House could not function without a Speaker. (C) Explain how the rule change allowing a single member to force a motion to vacate affected the Speaker's power.</p>`,
+   sol:`<ol>
+    <li><b>(A)</b> The Speaker presides over the House, recognizes members, refers bills to committee, and schedules floor votes (with the majority leader).</li>
+    <li><b>(B)</b> Floor action runs through the chair. Without a Speaker, no one can recognize members or put questions to a vote, and the House's only business is electing a new Speaker.</li>
+    <li><b>(C)</b> Letting any one member force a vote on removal made the Speaker constantly vulnerable to a small faction. That shifted leverage from leadership to individual members and weakened the Speaker's ability to cut bipartisan deals, which is exactly what McCarthy's September 2023 stopgap funding deal triggered. (House Republicans raised the threshold to nine majority-party members in January 2025.)</li></ol>
+    <div class="ans">Speaker controls the floor; without one the House is frozen; the one-member motion to vacate weakened the Speaker by making them hostage to small factions.</div>`},
+
+  {kind:'Party control',
+   q:'Explain why party control of the majority matters more in the House than in the Senate.',
+   sol:`<ol>
+    <li>In the House, the majority party controls the Speaker, the Rules Committee (9–4 majority ratio), and floor time. A bare majority can pass nearly anything it agrees on.</li>
+    <li>In the Senate, the filibuster lets 41 senators block most legislation, and unanimous consent practices give individual senators leverage. The majority controls the agenda but usually needs minority votes to finish.</li></ol>
+    <div class="ans">House rules let a unified majority pass bills alone; Senate rules (filibuster, unanimous consent) give the minority and individual senators real power.</div>`},
+
+  {kind:'Majority leader',
+   q:'Why is the Senate Majority Leader often considered more powerful than the Vice President in the Senate, even though the VP is the Senate\'s constitutional presiding officer?',
+   sol:`<ol>
+    <li>The VP presides rarely, can't debate, and votes only to break ties.</li>
+    <li>The Majority Leader has the right of first recognition, decides which bills and nominations reach the floor, files cloture motions, and negotiates unanimous consent agreements that set the terms of debate.</li>
+    <li>Power in Congress comes from agenda control, not the title of presiding officer.</li></ol>
+    <div class="ans">The Majority Leader controls the floor agenda; the VP's formal role is mostly ceremonial except for tie-breaking.</div>`}
+ ]
+},
+
+/* ---------------------------------------------------------- 4.4 */
+{
+ id:'t44', num:'4.4', title:'Committees',
+ lede:'Woodrow Wilson wrote in 1885 that "Congress in session is Congress on public exhibition, whilst Congress in its committee-rooms is Congress at work." Committees are where most of the lawmaking happens, and where most bills die.',
+ body:`
+ <h3>Why committees exist</h3>
+ <ul>
+  <li><b>Division of labor.</b> More than 10,000 bills are introduced every Congress; no member can study them all.</li>
+  <li><b>Specialization.</b> Members build expertise in areas like tax, defense, or agriculture, often ones that matter to their district.</li>
+  <li><b>Gatekeeping.</b> Committees filter bills, and most never make it out.</li>
+  <li><b>Oversight.</b> Committees hold hearings and investigate the executive branch.</li>
+ </ul>
+
+ <h3>The four types</h3>
+ <table>
+  <thead><tr><th>Type</th><th>What it is</th><th>Examples</th></tr></thead>
+  <tbody>
+   <tr><td>Standing</td><td><b>Permanent</b> panels organized by subject; the main lawmaking committees. They filter bills in their policy area. <b>20 in the House, 16 in the Senate.</b></td><td>House Ways and Means (taxes), House Appropriations, House Rules; Senate Finance, Senate Judiciary (Supreme Court confirmation hearings), Senate Foreign Relations, Armed Services in both</td></tr>
+   <tr><td>Select (special)</td><td>Created for a <b>specific purpose</b>, often an investigation. Usually temporary, can't usually report bills.</td><td>Senate Watergate Committee (1973, chaired by Sam Ervin; hearings revealed Nixon's taping system); House Select Committee on the January 6th Attack (2021–22, chair Bennie Thompson, vice chair Liz Cheney). Some are permanent, such as the Intelligence committees.</td></tr>
+   <tr><td>Joint</td><td>Members of <b>both</b> chambers. Usually study issues or handle housekeeping; can be temporary or permanent.</td><td>Joint Economic Committee, Joint Committee on Taxation, Joint Committee on Printing, Joint Committee on the Library</td></tr>
+   <tr><td>Conference</td><td>A <b>temporary</b> joint committee that irons out differences between House and Senate versions of a bill and produces one compromise text that both chambers vote on.</td><td>Now rare. Leaders more often negotiate privately or use "<b>ping-pong</b>" (passing amended versions back and forth).</td></tr>
+  </tbody>
+ </table>
+ <p><b>Subcommittees</b> are smaller divisions of a standing committee that handle one part of its workload. They hold hearings, "mark up" bills (revise them line by line), and make recommendations to the full committee. For example, the Senate Judiciary Committee has six subcommittees.</p>
+
+ <h3>Power committees to namedrop</h3>
+ <div class="cards">
+  <div class="card"><div class="k">House Rules</div><div class="v">The "traffic cop." Sets the terms of debate for nearly every major bill. The Speaker picks the majority's members, so it's an arm of leadership.</div></div>
+  <div class="card"><div class="k">House Ways and Means</div><div class="v">Writes tax law. It's the oldest committee, and revenue bills must start in the House.</div></div>
+  <div class="card"><div class="k">Appropriations (both)</div><div class="v">Writes the 12 annual spending bills. Its members are nicknamed "cardinals" for how much power they have over money.</div></div>
+  <div class="card"><div class="k">Senate Judiciary</div><div class="v">Holds confirmation hearings for federal judges, including Supreme Court nominees such as Kavanaugh (2018) and Jackson (2022).</div></div>
+ </div>
+
+ <h3>Chairs and the seniority rule</h3>
+ <p><b>Committee chairs</b> always come from the <b>majority party</b>. They set the agenda, schedule meetings, decide which bills get attention, decide whether to hold hearings, and control committee staff. A chair who refuses to schedule a bill can kill it quietly. That's called <b>pigeonholing</b>. The top minority-party member is the <b>ranking member</b>.</p>
+ <p>Chairs have traditionally been picked by the <b>seniority rule</b>, an unwritten custom of giving the chair to the majority member with the longest continuous service on that committee.</p>
+ <table>
+  <thead><tr><th>Pros of seniority</th><th>Cons of seniority</th></tr></thead>
+  <tbody><tr><td>Chairs have experience and expertise; avoids fights within the party; simple and predictable</td><td>Ignores ability and new ideas; favors members from safe seats; limits fresh leadership</td></tr></tbody>
+ </table>
+ <p>Seniority is weaker today. Since 1995 (Newt Gingrich's "Contract with America" Congress), House Republicans have limited chairs to <b>three consecutive terms (six years)</b>, and party leaders now weigh loyalty and fundraising too.</p>
+
+ <h3>Assignments and ratios</h3>
+ <ul>
+  <li>House members usually sit on 1–2 committees; senators on 3–4.</li>
+  <li>New members submit a "wish list." They want either a <b>prestige committee</b> (Rules, Ways and Means, Appropriations, Finance) or one that serves their district directly (a farm-state member on Agriculture, a Navy-town member on Armed Services).</li>
+  <li>Party ratios on each committee roughly track the chamber's party split, so the majority controls every committee. The House Rules Committee is deliberately lopsided at 9–4.</li>
+ </ul>
+
+ <h3>Iron triangles — where committees meet lobbying</h3>
+ <p>A standing committee, the executive agency it oversees, and the interest groups affected form a stable, mutually beneficial <b>iron triangle</b>. For example: the House Armed Services Committee, the Department of Defense, and defense contractors. Committees give agencies funding and friendly oversight, agencies give interest groups favorable rules, and interest groups give members campaign support. (This is covered more fully in the bureaucracy unit.)</p>
+
+ <div class="trap">
+  <div class="h">Where points get lost</div>
+  <p><b>Joint ≠ conference.</b> Both include members of both chambers, but a conference committee exists only to reconcile one specific bill. Joint committees study issues or do routine work.</p>
+  <p><b>Select committees investigate; standing committees legislate.</b> If the question says "investigate a specific event," the answer is select.</p>
+  <p><b>Committees, not floor votes, kill most bills.</b> On "at which stage do most bills die?" the answer is committee (and within it, subcommittee).</p>
+ </div>
+
+ <div class="frq">
+  <div class="h">FRQ language that scores</div>
+  <p>"Because committee chairs are members of the <b>majority party</b> and control the committee's agenda, a chair can <b>refuse to schedule hearings or a markup</b>, which prevents the bill from reaching the floor."</p>
+ </div>
+ `,
+ problems:[
+  {kind:'Identify the type',
+   q:'Name the committee type: (1) created to investigate a 2021 attack on the Capitol (2) permanent panel that writes tax law (3) House and Senate members reconciling two versions of a defense bill (4) House and Senate members producing an annual economic report.',
+   sol:`<ol>
+    <li>Select (House Select Committee on the January 6th Attack)</li>
+    <li>Standing (Ways and Means / Senate Finance)</li>
+    <li>Conference</li>
+    <li>Joint (Joint Economic Committee)</li></ol>
+    <div class="ans">Select · Standing · Conference · Joint</div>`},
+
+  {kind:'Concept application',
+   q:`<p>A first-term representative from rural Iowa, where corn and ethanol drive the economy, hopes to be assigned to the House Agriculture Committee rather than the Foreign Affairs Committee.</p><p>(A) Describe one reason members seek particular committee assignments. (B) Explain how serving on the Agriculture Committee could help this representative win reelection.</p>`,
+   sol:`<ol>
+    <li><b>(A)</b> Members seek committees that match their constituents' economic interests, so they can shape policy that directly affects their district.</li>
+    <li><b>(B)</b> On Agriculture, the representative can shape the farm bill's crop subsidies and ethanol mandates. Delivering visible benefits to district farmers earns credit, builds name recognition, and attracts support from agricultural interest groups — all of which strengthen the <b>incumbency advantage</b>.</li></ol>
+    <div class="ans">Members pick committees that serve their district; delivering benefits builds credit with voters and groups, which helps with reelection.</div>`},
+
+  {kind:'Seniority rule',
+   q:'Give one argument for and one argument against the seniority rule, and explain how House Republicans changed it.',
+   sol:`<ol>
+    <li>For: chairs bring years of policy expertise and institutional knowledge; the rule is predictable and avoids fights within the party.</li>
+    <li>Against: it rewards longevity, not skill; it tends to give chairs to members from safe seats who may be out of step with the party; talented newer members are shut out.</li>
+    <li>Change: since 1995, House Republicans have limited chairs to three consecutive terms (six years), and leadership influences who gets chair positions.</li></ol>
+    <div class="ans">Pro: experience/stability. Con: ignores ability, limits new leadership. GOP term limits on chairs (6 years) weakened seniority.</div>`},
+
+  {kind:'Where bills die',
+   q:'Explain why most bills introduced in Congress never receive a floor vote.',
+   sol:`<ol>
+    <li>Thousands of bills are introduced for reasons other than passage: messaging, credit-claiming, signaling to groups.</li>
+    <li>Committees are gatekeepers. The chair (majority party) decides which bills get hearings and markups, and most are never scheduled (pigeonholed).</li>
+    <li>Even bills reported out still need the Rules Committee (House) or majority leader (Senate) to schedule floor time.</li></ol>
+    <p>Only about 2–4% of bills introduced in a typical Congress become law.</p>
+    <div class="ans">Committees and chairs filter bills; most are pigeonholed and never reported, so they never reach the floor.</div>`},
+
+  {kind:'Oversight',
+   q:'How do committees carry out congressional oversight of the executive branch? Give a specific example.',
+   sol:`<ol>
+    <li>Committees hold hearings, call executive officials to testify, subpoena documents and witnesses, and review agency budgets.</li>
+    <li>Example: the Senate Watergate Committee (1973) held televised hearings where aide Alexander Butterfield revealed Nixon's White House taping system. That led to the tapes fight and Nixon's 1974 resignation.</li></ol>
+    <div class="ans">Through hearings, investigations, subpoenas, and budget review, as in the Senate Watergate Committee's investigation of Nixon.</div>`}
+ ]
+},
+
+/* ---------------------------------------------------------- 4.5 */
+{
+ id:'t45', num:'4.5', title:'How a Bill Becomes a Law',
+ lede:'The process is designed with more exits than entrances. Every step is a place where a determined minority can stop a bill, which is exactly what the framers wanted.',
+ body:`
+ <h3>Bills, laws, and resolutions</h3>
+ <p>A <b>bill</b> is a proposed law. It becomes a <b>law</b> only after both chambers pass identical text and the President signs it (or Congress overrides a veto, or 10 days pass while Congress is in session). Other types of legislation:</p>
+ <table>
+  <thead><tr><th>Type</th><th>Passed by</th><th>President?</th><th>Force of law?</th><th>Used for</th></tr></thead>
+  <tbody>
+   <tr><td>Simple resolution</td><td>One chamber</td><td>No</td><td>No</td><td>That chamber's own rules; honoring people</td></tr>
+   <tr><td>Concurrent resolution</td><td>Both</td><td>No</td><td>No</td><td>Joint business: adjournment, the budget resolution</td></tr>
+   <tr><td>Joint resolution</td><td>Both</td><td>Yes (except amendments)</td><td>Yes</td><td>Same as a bill; also proposing constitutional amendments (2/3 each, no President) and declarations of war</td></tr>
+  </tbody>
+ </table>
+ <p>Bills ultimately start with the people. Interest groups, parties, the media, and the President push for them, but only a member of Congress can introduce one. House bills are numbered <b>H.R. ###</b> and Senate bills <b>S. ###</b>.</p>
+
+ ${billMap()}
+
+ <h3>Step by step (House version, since it has the extra step)</h3>
+ <ol>
+  <li><b>Introduction.</b> A member drops the bill in the "hopper." It gets a number, and the Speaker refers it to a standing committee.</li>
+  <li><b>Committee.</b> The chair usually sends it to a <b>subcommittee</b> for hearings and <b>markup</b>. The full committee then votes. Options: report it favorably, <b>kill it</b> (most common, often by pigeonholing), amend it, report it unfavorably (rare), or write a new committee bill. <b>Most bills die here.</b></li>
+  <li><b>Discharge petition.</b> If a committee is sitting on a bill, a majority of the House (<b>218 signatures</b>) can force it to the floor. This rarely works. Recent example: the Epstein Files Transparency Act petition reached 218 in November 2025, and the bill then passed 427–1.</li>
+  <li><b>Rules Committee (House only).</b> Sets the terms of debate: time limits and whether amendments are allowed. A <b>closed rule</b> bans amendments; an <b>open rule</b> allows any germane amendment; a <b>structured (modified) rule</b> allows only listed ones. Major bills now almost always get closed or structured rules.</li>
+  <li><b>Floor debate.</b> Strict time limits, and amendments must be <b>germane</b> (on topic). Much of it happens in the <b>Committee of the Whole</b>, which needs a quorum of only 100.</li>
+  <li><b>Vote.</b> A simple majority of those voting. With all 435 seats filled and everyone voting, that's 218.</li>
+  <li><b>Second chamber.</b> The same process repeats. If the second chamber passes a different version, the two must be reconciled by a <b>conference committee</b> or ping-pong, and both chambers must pass the final identical text.</li>
+  <li><b>President.</b> Has <b>10 days (Sundays excepted)</b> to sign or veto.</li>
+ </ol>
+
+ <h3>What's different in the Senate</h3>
+ <ul>
+  <li><b>No Rules Committee gate.</b> The Majority Leader schedules bills, usually through <b>unanimous consent agreements</b>. One objecting senator can block unanimous consent.</li>
+  <li><b>Holds.</b> A senator can signal they'll object to unanimous consent on a bill or nomination. Sen. Tommy Tuberville held up hundreds of military promotions for about ten months in 2023 to protest a Pentagon abortion-travel policy.</li>
+  <li><b>Unlimited debate → the filibuster.</b> Senators can talk as long as they want to stall or kill a bill. Today most filibusters are just a <em>threat</em>: the majority won't bring a bill up without 60 votes.</li>
+  <li><b>Cloture</b> (Senate Rule XXII) ends debate with <b>60 votes</b> (3/5 of the full Senate). Created in 1917 at 2/3; lowered to 3/5 in 1975.</li>
+  <li><b>Non-germane amendments (riders)</b> are allowed. A bill loaded with unrelated riders is a "Christmas tree bill."</li>
+ </ul>
+ <p><b>Record speeches:</b> Strom Thurmond filibustered the Civil Rights Act of 1957 for <b>24 hours, 18 minutes</b>, a record that stood until Cory Booker spoke for <b>25 hours, 5 minutes</b> in April 2025. Booker's speech was a protest, not a filibuster of a specific bill.</p>
+ <p><b>The nuclear option:</b> a simple-majority vote to reinterpret Senate rules. In 2013, Democrats (Harry Reid) eliminated the filibuster for lower-court and executive nominees; in 2017, Republicans (Mitch McConnell) extended it to Supreme Court nominees (Gorsuch). The <b>legislative filibuster</b> on ordinary bills still stands. Senate Republicans rejected President Trump's calls to abolish it during the 2025 shutdown.</p>
+ <p><b>Exceptions to the filibuster:</b> budget <b>reconciliation</b> bills (limited to 20 hours of debate, simple majority), nominations, and certain fast-track procedures such as the Congressional Review Act.</p>
+
+ <h3>The President's options</h3>
+ <div class="cards">
+  <div class="card"><div class="k">Sign</div><div class="v">Becomes law. May add a <b>signing statement</b> interpreting the law or saying how it will be enforced.</div></div>
+  <div class="card"><div class="k">Veto</div><div class="v">Returned to Congress with objections. <b>Override: 2/3 of both chambers.</b> Fewer than 1 in 10 regular vetoes are overridden.</div></div>
+  <div class="card"><div class="k">Do nothing (in session)</div><div class="v">After 10 days (excluding Sundays), becomes law <b>without</b> a signature.</div></div>
+  <div class="card"><div class="k">Pocket veto</div><div class="v">Do nothing, and Congress <b>adjourns</b> within the 10 days → the bill dies. <b>Can't be overridden.</b></div></div>
+ </div>
+ <p>There's no <b>line-item veto</b>. Congress gave the President one in 1996, but the Court struck it down in <b>Clinton v. City of New York (1998)</b>, holding that it violated the Presentment Clause. The President has to accept or reject a whole bill, which is why riders work.</p>
+
+ <h3>Deal-making vocabulary</h3>
+ <ul>
+  <li><b>Logrolling</b>: vote trading. "I'll vote for your farm bill if you vote for my highway bill."</li>
+  <li><b>Pork barrel spending</b>: funding for local projects meant to win votes back home. The classic example is Alaska's $398 million "<b>Bridge to Nowhere</b>" (2005).</li>
+  <li><b>Earmarks</b>: provisions directing money to specific projects. Banned in 2011, then brought back in 2021 as "Community Project Funding."</li>
+  <li><b>Rider</b>: an unrelated provision attached to a bill likely to pass.</li>
+ </ul>
+
+ <div class="trap">
+  <div class="h">Where points get lost</div>
+  <p><b>"Does nothing for 10 days" has two outcomes.</b> If Congress is in session, the bill becomes law. If Congress has adjourned, it's a pocket veto. Your class notes only cover the first case, and the exam tests both.</p>
+  <p><b>Filibuster ≠ cloture.</b> The filibuster is unlimited debate; cloture is the 60-vote motion that ends it. And they only exist in the Senate.</p>
+  <p><b>The Rules Committee is House-only.</b> If an answer choice puts it in the Senate, it's wrong.</p>
+  <p><b>Discharge petition = 218 in the House.</b> Don't confuse it with cloture (60 in the Senate).</p>
+ </div>
+
+ <div class="frq">
+  <div class="h">FRQ language that scores</div>
+  <p>"Because Senate rules allow <b>unlimited debate</b>, a minority of 41 senators can <b>filibuster</b> a bill, and the majority needs <b>60 votes to invoke cloture</b>. This makes it harder to pass legislation in the Senate than in the House, where the <b>Rules Committee</b> limits debate."</p>
+ </div>
+ `,
+ problems:[
+  {kind:'Sequence',
+   q:'Put these in order for a bill that starts in the House: (a) Rules Committee sets a closed rule (b) subcommittee holds hearings and marks up the bill (c) Speaker refers the bill to a standing committee (d) Senate invokes cloture (e) conference committee reconciles versions (f) House floor vote.',
+   sol:`<div class="work">(c) referral → (b) subcommittee hearings & markup → (a) Rules Committee
+→ (f) House floor vote → (d) Senate cloture & passage → (e) conference</div>
+    <p>After conference, both chambers pass the final version, and it goes to the President.</p>
+    <div class="ans">c → b → a → f → d → e</div>`},
+
+  {kind:'Presidential action',
+   q:'Congress sends a bill to the President on December 15 and adjourns for the year on December 20. The President never signs it. What happens? What if Congress had stayed in session through January?',
+   sol:`<ol>
+    <li>The President has 10 days, excluding Sundays. Congress adjourned before the 10 days were up, and the President took no action → <b>pocket veto</b>. The bill dies and can't be overridden. Congress would have to start over.</li>
+    <li>If Congress had stayed in session, the bill would <b>become law without a signature</b> once the 10 days passed.</li></ol>
+    <div class="ans">Adjourned → pocket veto (dies, no override). In session → becomes law without a signature.</div>`},
+
+  {kind:'Override math',
+   q:'The President vetoes a bill. In the House, 290 of 435 members vote to override (all present). In the Senate, 66 of 100 vote to override. Is the veto overridden?',
+   sol:`<ol>
+    <li>House: 2/3 of 435 = 290. 290 ≥ 290 → <b>passes</b> (exactly 2/3).</li>
+    <li>Senate: 2/3 of 100 = 66.67 → needs 67. 66 < 67 → <b>fails</b>.</li>
+    <li>An override needs 2/3 in <b>both</b> chambers, so the veto stands.</li></ol>
+    <div class="work">House  2/3 × 435 = 290.0  → 290 ✓
+Senate 2/3 × 100 = 66.7   → 66  ✗</div>
+    <div class="ans">Not overridden. The Senate fell one vote short of 67.</div>`},
+
+  {kind:'Concept application',
+   q:`<p>A bill to expand broadband access passed the House 262–170. In the Senate, 57 senators support it, but the minority leader has announced his party will filibuster.</p><p>(A) Identify the Senate procedure needed to end a filibuster. (B) Explain why the bill passed easily in the House but is stuck in the Senate. (C) Describe one strategy supporters could use to get the bill through the Senate.</p>`,
+   sol:`<ol>
+    <li><b>(A)</b> Cloture: 60 votes (3/5 of the Senate).</li>
+    <li><b>(B)</b> In the House, the Rules Committee limits debate and a simple majority passes a bill, so 262 votes is plenty. The Senate allows unlimited debate, so a minority can block a vote. 57 supporters is a majority but three short of cloture.</li>
+    <li><b>(C)</b> Options: negotiate amendments to win three more senators; if the provisions are budgetary, pass them through <b>reconciliation</b> (majority vote, no filibuster); attach them to must-pass legislation such as an appropriations bill; or, in theory, use the nuclear option to change the rules.</li></ol>
+    <div class="ans">(A) Cloture/60. (B) House rules limit debate; the Senate permits unlimited debate. (C) Compromise for 3 votes, reconciliation, or attach to must-pass legislation.</div>`},
+
+  {kind:'Discharge petition',
+   q:'A bill has 230 cosponsors in the House, but the committee chair refuses to hold a hearing. What can supporters do, and why does this rarely succeed?',
+   sol:`<ol>
+    <li>File a <b>discharge petition</b>. Once 218 members sign, the bill is forced out of committee and onto the floor.</li>
+    <li>It rarely works because majority-party members don't like to defy their own leadership by signing. Leaders control committee assignments, campaign support, and future favors. Cosponsoring is cheap; signing a discharge petition is an open challenge to leadership.</li>
+    <li>Successes are memorable exactly because they're rare: McCain–Feingold campaign finance reform (2002) and the Epstein Files Transparency Act (2025).</li></ol>
+    <div class="ans">Discharge petition (218 signatures). It rarely succeeds because members won't openly defy party leaders.</div>`},
+
+  {kind:'Line-item veto',
+   q:'A senator attaches a rider funding a museum in her state to a must-pass defense bill. The President objects to the rider but supports the rest. What are the President\'s options, and why?',
+   sol:`<ol>
+    <li>The President has no line-item veto. <b>Clinton v. City of New York (1998)</b> struck down the 1996 Line Item Veto Act as a violation of the Presentment Clause.</li>
+    <li>Options: sign the whole bill (and possibly issue a signing statement objecting), or veto the whole bill, which would block defense funding too.</li>
+    <li>That all-or-nothing choice is exactly why members attach riders to must-pass bills.</li></ol>
+    <div class="ans">Sign the whole bill or veto the whole bill; the line-item veto is unconstitutional, which is why riders work.</div>`}
+ ]
+},
+
+/* ---------------------------------------------------------- 4.6 */
+{
+ id:'t46', num:'4.6', title:'The Budget & the Power of the Purse',
+ lede:'Congress\'s most important power is deciding how federal money is spent. But most of the budget is on autopilot, so the fights happen over the shrinking slice that is still up for a vote each year.',
+ body:`
+ <h3>Where the money goes</h3>
+ ${barChart({items:[{label:'Mandatory',value:61},{label:'Discretionary',value:27,color:'var(--brass)'},{label:'Net interest',value:13,color:'var(--brick)'}],max:70,step:10,unit:'%',showVal:true,ylabel:'share of federal outlays',caption:'Federal outlays, FY2024 (≈ $6.8 trillion total) · CBO data, rounded'})}
+ <div class="cards">
+  <div class="card"><div class="k">Mandatory spending</div><div class="v">Spending required by existing law. It doesn't need annual approval. Mostly <b>entitlements</b> — Social Security, Medicare, Medicaid — which anyone who meets the eligibility rules receives automatically. Growing fastest as the population ages.</div></div>
+  <div class="card"><div class="k">Discretionary spending</div><div class="v">Spending Congress must approve every year in <b>12 appropriations bills</b>. It covers defense (about half) plus education, transportation, NASA, and everything else.</div></div>
+  <div class="card"><div class="k">Net interest</div><div class="v">Payments on the <b>national debt</b>. Legally required, and now larger than the entire defense budget.</div></div>
+ </div>
+ <p><b>The key takeaway:</b> about three-quarters of the budget (mandatory + interest) can't be touched without changing entitlement laws, which is politically dangerous. Social Security is known as the "third rail" of American politics. Congress therefore fights over the ~27% that's discretionary.</p>
+
+ <h3>The budget process</h3>
+ <ol>
+  <li><b>First Monday in February:</b> the President submits a budget proposal, prepared by the <b>Office of Management and Budget (OMB)</b>. It's only a request.</li>
+  <li><b>Congressional Budget Office (CBO)</b>: the nonpartisan agency that scores bills (estimates their costs) and forecasts the economy. It gives Congress its own numbers, independent of the President's OMB.</li>
+  <li><b>Budget resolution</b>: House and Senate Budget Committees set overall spending limits in a concurrent resolution (not signed by the President).</li>
+  <li><b>Appropriations</b>: the Appropriations committees write 12 bills funding the government.</li>
+  <li><b>October 1: the fiscal year begins.</b> If the bills aren't passed, Congress passes a <b>continuing resolution (CR)</b> to keep funding at current levels, or rolls everything into one <b>omnibus</b> bill.</li>
+ </ol>
+ <p>The <b>Congressional Budget and Impoundment Control Act of 1974</b> created this process, the CBO, and the Budget Committees. It was passed in response to Nixon's <b>impoundment</b> (refusal to spend) of money Congress had appropriated, and it limits the President's ability to do that.</p>
+
+ <h3>Shutdowns, debt, and the debt ceiling</h3>
+ <ul>
+  <li><b>Government shutdown</b>: if appropriations or a CR lapse, non-essential operations stop. The <b>longest in history</b> ran <b>43 days, Oct. 1 – Nov. 12, 2025</b>, breaking the 35-day record from 2018–19.</li>
+  <li><b>Deficit</b> = the gap between spending and revenue in one year. <b>Debt</b> = the total accumulated from all past deficits (now more than $38 trillion).</li>
+  <li><b>Debt ceiling</b>: a statutory cap on total federal borrowing. It doesn't authorize new spending; it lets the Treasury pay for spending Congress already approved. Standoffs over raising it (2011, 2023) have threatened default. The One Big Beautiful Bill Act (2025) raised it by $5 trillion.</li>
+ </ul>
+
+ <h3>Reconciliation — the filibuster workaround</h3>
+ <p><b>Budget reconciliation</b> is a fast-track process for bills that change spending, taxes, or the debt limit. Debate is limited to 20 hours, so it <b>can't be filibustered</b> and needs only a simple majority. The <b>Byrd Rule</b> limits it to provisions with a direct budget effect, and the Senate parliamentarian decides what qualifies. Major uses:</p>
+ <ul>
+  <li>Affordable Care Act fixes (Health Care and Education Reconciliation Act, 2010)</li>
+  <li>Tax Cuts and Jobs Act (2017)</li>
+  <li>American Rescue Plan (2021) and Inflation Reduction Act (2022). VP Kamala Harris broke ties on both.</li>
+  <li><b>One Big Beautiful Bill Act</b> (signed July 4, 2025): tax cuts, Medicaid changes, and the debt-limit increase. Passed the Senate 51–50 with VP Vance's tiebreaker and the House 218–214.</li>
+ </ul>
+
+ <div class="trap">
+  <div class="h">Where points get lost</div>
+  <p><b>Deficit ≠ debt.</b> A deficit is one year's gap; the debt is the running total. "The deficit is $38 trillion" is wrong.</p>
+  <p><b>Raising the debt ceiling doesn't increase spending.</b> It pays bills Congress already ran up.</p>
+  <p><b>The President proposes; Congress disposes.</b> The President's budget has no legal force. Only appropriations passed by Congress can spend money.</p>
+  <p><b>Entitlements are mandatory</b>, so cutting "wasteful discretionary spending" can't balance the budget on its own. The math doesn't work, and FRQs reward you for saying so.</p>
+ </div>
+
+ <div class="frq">
+  <div class="h">FRQ language that scores (quantitative analysis)</div>
+  <p>"The graph shows that <b>mandatory spending (61%)</b> makes up the largest share of federal outlays. This limits Congress's control over the budget because mandatory spending is <b>set by existing law and does not require annual appropriations</b>, so Congress can only adjust the <b>discretionary</b> portion (27%) through the yearly appropriations process."</p>
+ </div>
+ `,
+ problems:[
+  {kind:'Quantitative analysis',
+   q:`Use the chart.${barChart({items:[{label:'1965',value:30},{label:'1985',value:44},{label:'2005',value:53},{label:'2024',value:61}],max:80,step:10,unit:'%',showVal:true,ylabel:'mandatory, % of outlays',caption:'Mandatory spending as a share of federal outlays (approx., CBO/OMB historical tables)'})}(A) Identify the share of spending that was mandatory in 1985. (B) Describe the trend. (C) Draw a conclusion about how the trend affects Congress's power of the purse. (D) Explain one reason for the trend.`,
+   sol:`<ol>
+    <li><b>(A)</b> Read the 1985 bar: about <b>44%</b>.</li>
+    <li><b>(B)</b> Mandatory spending grew steadily as a share of outlays, from under a third in 1965 to about three-fifths in 2024.</li>
+    <li><b>(C)</b> Congress's annual control over the budget has <b>shrunk</b>: a growing share is spent automatically under existing entitlement laws, leaving less discretionary money to allocate each year.</li>
+    <li><b>(D)</b> Medicare and Medicaid were created in 1965 and grew with health costs; the aging baby-boom population draws more Social Security and Medicare; entitlement cuts are politically risky, so they rarely happen.</li></ol>
+    <p>Scoring note: in (A), a number read from the chart is the whole point. Say "about 44%," not "less than half."</p>
+    <div class="ans">~44% · rising trend · shrinking share of the budget Congress controls each year · aging population and health-care costs</div>`},
+
+  {kind:'Vocabulary',
+   q:'Match: (1) nonpartisan agency that scores bills (2) the President\'s budget office (3) keeps the government funded at current levels temporarily (4) a single bill combining many appropriations (5) Social Security and Medicare.',
+   sol:`<ol><li>CBO</li><li>OMB</li><li>Continuing resolution</li><li>Omnibus bill</li><li>Entitlements (mandatory spending)</li></ol>
+    <p>CBO works for Congress; OMB works for the President. MCQs deliberately swap them.</p>
+    <div class="ans">CBO · OMB · CR · Omnibus · Entitlements</div>`},
+
+  {kind:'Reconciliation',
+   q:'The Senate has 52 majority-party members. Leaders want to pass a large tax cut that the minority opposes. Explain which procedure they would use, why, and one limitation.',
+   sol:`<ol>
+    <li>Use <b>budget reconciliation</b>: debate is capped at 20 hours, so it can't be filibustered and needs only a simple majority (51, or 50 + VP).</li>
+    <li>52 is enough for reconciliation but not for the 60 votes cloture requires.</li>
+    <li>Limitation: the <b>Byrd Rule</b>. Provisions must directly affect spending or revenue, and the parliamentarian can strip non-budgetary provisions. Reconciliation bills also can't add to deficits beyond the budget window, which is why the 2017 individual tax cuts were written to expire.</li></ol>
+    <div class="ans">Reconciliation: simple majority, no filibuster. Limited by the Byrd Rule to budget-related provisions.</div>`},
+
+  {kind:'Shutdown scenario',
+   q:'It\'s September 30. None of the 12 appropriations bills have passed. Describe two things Congress can do, and what happens if it does neither.',
+   sol:`<ol>
+    <li>Pass a <b>continuing resolution</b> to fund the government temporarily at current levels.</li>
+    <li>Pass an <b>omnibus</b> (all 12 bills in one) or a "minibus" (several).</li>
+    <li>If neither passes and the President signs neither by midnight, funding lapses → <b>government shutdown</b>. Non-essential employees are furloughed; essential workers keep working without pay; mandatory programs like Social Security keep paying because they don't depend on annual appropriations.</li></ol>
+    <p>Namedrop: the Oct. 1 – Nov. 12, 2025 shutdown lasted 43 days, the longest ever.</p>
+    <div class="ans">CR or omnibus; otherwise a shutdown (mandatory spending continues).</div>`},
+
+  {kind:'Pork & logrolling',
+   q:'A representative trades her vote on a colleague\'s highway bill for his vote on funding for a veterans\' hospital in her district. Name both practices involved and explain how they relate to the incumbency advantage.',
+   sol:`<ol>
+    <li>The vote trade is <b>logrolling</b>.</li>
+    <li>Money for a specific local project is <b>pork barrel spending</b> (delivered through an <b>earmark</b>).</li>
+    <li>Link: bringing projects home lets the incumbent claim credit ("I got us the hospital"), which builds name recognition and constituent support and makes reelection more likely.</li></ol>
+    <div class="ans">Logrolling + pork barrel; both let incumbents claim credit for local benefits, strengthening reelection chances.</div>`}
+ ]
+},
+
+/* ---------------------------------------------------------- 4.7 */
+{
+ id:'t47', num:'4.7', title:'Reapportionment & Redistricting',
+ lede:'Every ten years the country is counted, House seats move between states, and every state redraws its lines. The Supreme Court spent the 1960s deciding that those lines had to treat each voter equally.',
+ body:`
+ <h3>Two processes: don't mix them up</h3>
+ <div class="cards">
+  <div class="card"><div class="k">Reapportionment</div><div class="v">Redistributing the <b>435 House seats among the states</b> after each census. Done by a formula at the federal level. Every state gets at least one seat.</div></div>
+  <div class="card"><div class="k">Redistricting</div><div class="v">Redrawing <b>district lines within a state</b> after it learns how many seats it has. Usually done by the <b>state legislature</b>, sometimes by an independent commission or a court.</div></div>
+ </div>
+
+ <h3>Reapportionment mechanics</h3>
+ <ul>
+  <li>Article I, §2 requires an "actual enumeration" — the <b>census</b> — every 10 years. The last was 2020; the next is 2030.</li>
+  <li>The <b>Reapportionment Act of 1929</b> (Permanent Apportionment Act) capped the House at <b>435</b>. The Census Bureau reports the counts, and seats are assigned automatically. Since 1941 the formula has been the "method of equal proportions" (Huntington–Hill).</li>
+  <li>Because the total is fixed, it's zero-sum: one state's gain is another's loss. The long-term trend is seats shifting from the Northeast and Midwest (the "Rust Belt") to the South and West (the "Sun Belt").</li>
+  <li>Six states have only one at-large seat: Alaska, Delaware, North Dakota, South Dakota, Vermont, and Wyoming. Montana regained a second seat in 2020.</li>
+  <li>A seat change also changes a state's <b>Electoral College votes</b> (House seats + 2).</li>
+ </ul>
+ ${barChart({items:[{label:'TX',value:2},{label:'FL',value:1},{label:'CO',value:1},{label:'MT',value:1},{label:'NC',value:1},{label:'OR',value:1},{label:'CA',value:-1},{label:'IL',value:-1},{label:'MI',value:-1},{label:'NY',value:-1},{label:'OH',value:-1},{label:'PA',value:-1},{label:'WV',value:-1}],min:-2,max:3,step:1,signed:true,ylabel:'change in House seats',h:280,caption:'Reapportionment after the 2020 census · seats changed hands in 13 states (7 seats moved)'})}
+ <p>California lost a seat for the first time in its history (53 → 52). Texas gained two (36 → 38), after gaining four in 2010.</p>
+
+ <h3>Redistricting rules</h3>
+ <ul>
+  <li><b>Equal population: "one person, one vote."</b> Districts in a state must have nearly equal populations. <b>Malapportionment</b> (badly unequal districts) is unconstitutional.</li>
+  <li><b>Contiguous</b>: every part of a district must connect.</li>
+  <li><b>Can't discriminate by race</b>: the 14th and 15th Amendments and the <b>Voting Rights Act of 1965</b>.</li>
+  <li>Many states add compactness and keeping counties and "communities of interest" together.</li>
+  <li><b>Independent redistricting commissions</b> draw the lines in some states, including California (created by voters in 2008/2010), Arizona (upheld in <i>Arizona State Legislature v. Arizona Independent Redistricting Commission</i>, 2015), and Michigan (2018).</li>
+ </ul>
+
+ <h3>The one-person-one-vote cases</h3>
+ <h4>Baker v. Carr (1962) — REQUIRED CASE</h4>
+ <table>
+  <tbody>
+   <tr><td>Facts</td><td>Charles Baker, a Shelby County (Memphis) voter, sued Tennessee Secretary of State Joe Carr. Tennessee had <b>not redistricted its state legislature since 1901</b>, despite a state constitutional requirement to do so every 10 years. Cities had grown enormously, so a rural vote counted for far more than an urban one.</td></tr>
+   <tr><td>Question</td><td>Can federal courts hear challenges to legislative apportionment, or is it a "political question" for the elected branches? Does the failure to redistrict violate the <b>Equal Protection Clause</b> of the 14th Amendment?</td></tr>
+   <tr><td>Holding</td><td><b>6–2</b>, Justice William Brennan. Apportionment is <b>justiciable</b>: federal courts <b>can</b> hear these cases. The Court sent the case back without deciding whether Tennessee's map was unconstitutional.</td></tr>
+   <tr><td>Reasoning</td><td>Equal protection is a constitutional right, and deciding whether it has been violated is a judicial job, not a "political question." Brennan set out a test for what counts as a political question. Justice Felix Frankfurter dissented, warning the Court was entering a "political thicket."</td></tr>
+   <tr><td>Impact</td><td>Opened the door to <i>Wesberry</i> and <i>Reynolds</i>. Within about four years, nearly every state had redrawn its maps. Chief Justice Earl Warren called Baker the most important case of his tenure.</td></tr>
+  </tbody>
+ </table>
+ <h4>Wesberry v. Sanders (1964)</h4>
+ <p>Georgia's congressional districts were badly unequal (one Atlanta district had about three times the population of another). The Court held that congressional districts must be as equal in population "as nearly as is practicable." This applied <b>"one person, one vote"</b> to the <b>U.S. House</b>, grounding it in Article I, §2.</p>
+ <h4>Reynolds v. Sims (1964)</h4>
+ <p>Applied one person, one vote to <b>both houses of state legislatures</b> (Alabama), under the Equal Protection Clause. Chief Justice Warren wrote: "Legislators represent people, not trees or acres." States can't copy the U.S. Senate model with one senator per county.</p>
+
+ <div class="trap">
+  <div class="h">Where points get lost</div>
+  <p><b>Baker v. Carr did NOT create "one person, one vote."</b> Baker only said courts <em>can hear</em> these cases (justiciability). Wesberry (congressional districts) and Reynolds (state legislatures) set the equal-population standard. Your class notes attribute it to Wesberry, which is correct.</p>
+  <p><b>Reapportionment ≠ redistricting.</b> Reapportionment moves seats between states; redistricting draws lines inside a state.</p>
+  <p><b>The U.S. Senate is exempt from one person, one vote.</b> Equal state representation is written into the Constitution (Article V even bars taking it away without a state's consent).</p>
+ </div>
+
+ <div class="frq">
+  <div class="h">FRQ language that scores (SCOTUS comparison)</div>
+  <p>"In <i>Baker v. Carr</i> (1962), the Court held that <b>redistricting is justiciable</b> because a claim that unequal districts violate the <b>Equal Protection Clause of the Fourteenth Amendment</b> is a constitutional question courts can decide, not a political question."</p>
+ </div>
+ `,
+ problems:[
+  {kind:'Read the chart',
+   q:`Using the 2020 reapportionment chart above: (A) Identify the state that gained the most seats. (B) Describe the regional pattern in the changes. (C) Explain one political consequence for a state that loses a seat.`,
+   sol:`<ol>
+    <li><b>(A)</b> Texas, +2.</li>
+    <li><b>(B)</b> Gains went to the South and West (TX, FL, NC, CO, MT, OR); losses came from the Northeast, Midwest, and California (NY, PA, OH, MI, IL, WV, CA). Population is moving to the Sun Belt.</li>
+    <li><b>(C)</b> A state that loses a seat loses representation in the House <b>and</b> one Electoral College vote. It also has to redraw its map with fewer districts, which can force two incumbents to run against each other.</li></ol>
+    <div class="ans">Texas · shift from Rust Belt/Northeast to Sun Belt · fewer House votes and electoral votes, incumbent-vs-incumbent races</div>`},
+
+  {kind:'Required case',
+   q:'Describe the facts, holding, and significance of <i>Baker v. Carr</i> (1962) in three sentences.',
+   sol:`<ol>
+    <li><b>Facts:</b> Tennessee hadn't redistricted its legislature since 1901, so urban voters like Charles Baker were badly underrepresented compared with rural voters.</li>
+    <li><b>Holding:</b> In a 6–2 decision by Justice Brennan, the Court ruled that apportionment challenges are justiciable. They raise an Equal Protection question, not a "political question," so federal courts can hear them.</li>
+    <li><b>Significance:</b> It opened the courts to redistricting cases, leading directly to one person, one vote in <i>Wesberry v. Sanders</i> and <i>Reynolds v. Sims</i> (1964) and to nationwide redistricting.</li></ol>
+    <div class="ans">Tennessee malapportionment → courts CAN hear redistricting cases (14th Amendment Equal Protection) → one person, one vote.</div>`},
+
+  {kind:'Case matching',
+   q:'Match each case to its principle: (1) Baker v. Carr (2) Wesberry v. Sanders (3) Reynolds v. Sims. Principles: (a) state legislative districts must be equal in population (b) courts may hear apportionment cases (c) congressional districts must be equal in population.',
+   sol:`<ol><li>Baker → (b) justiciability</li><li>Wesberry → (c) U.S. House districts</li><li>Reynolds → (a) state legislatures ("people, not trees or acres")</li></ol>
+    <div class="ans">1-b, 2-c, 3-a</div>`},
+
+  {kind:'Process distinction',
+   q:'After the 2020 census, Texas went from 36 to 38 seats and then drew a new map. Label each step as reapportionment or redistricting, and name who performed it.',
+   sol:`<ol>
+    <li>36 → 38 seats: <b>reapportionment</b>. The federal formula applied to Census Bureau counts; Texas received its seats automatically.</li>
+    <li>Drawing the 38 districts: <b>redistricting</b>. Done by the Texas state legislature (which redrew them again mid-decade in 2025).</li></ol>
+    <div class="ans">Seat change = reapportionment (federal/census). New lines = redistricting (state legislature).</div>`},
+
+  {kind:'Malapportionment',
+   q:'State X has two congressional districts: District 1 has 1,000,000 people and District 2 has 500,000. Explain why this is unconstitutional and which case you would cite.',
+   sol:`<ol>
+    <li>A voter in District 2 has twice the influence of a voter in District 1, because each representative stands for half as many people.</li>
+    <li><b>Wesberry v. Sanders (1964)</b> requires congressional districts to be as equal in population "as nearly as is practicable" — one person, one vote.</li>
+    <li>You'd get into court under <b>Baker v. Carr</b>, which makes the claim justiciable.</li></ol>
+    <div class="ans">It dilutes District 1 votes by half; it violates one person, one vote (Wesberry v. Sanders), and Baker v. Carr lets courts hear the case.</div>`}
+ ]
+},
+
+/* ---------------------------------------------------------- 4.8 */
+{
+ id:'t48', num:'4.8', title:'Gerrymandering & the Courts',
+ lede:'The map-drawer can decide an election before anyone votes. Courts police racial gerrymanders but have left partisan ones to the states, and since 2025 that choice has set off a nationwide redistricting war.',
+ body:`
+ <h3>What it is</h3>
+ <p><b>Gerrymandering</b> is drawing district lines to give one party or group an unfair advantage. It's usually visible in oddly shaped districts. The name comes from Massachusetts Gov. <b>Elbridge Gerry</b>, who signed an 1812 map with a district shaped like a salamander. A cartoonist called it a "Gerry-mander."</p>
+
+ <h3>Packing and cracking</h3>
+ ${gerry({grid:['DDDRR','DDDRR','DDDRR','DDDRR','DDDRR'],districts:['12345','12345','12345','12345','12345'],caption:'A 25-voter state · 15 D (60%), 10 R (40%) · five column districts → D wins 3, R wins 2 (proportional)'})}
+ <div class="cards">
+  <div class="card"><div class="k">Packing</div><div class="v">Concentrate the other party's voters into <b>as few districts as possible</b>. They win those by huge margins and "waste" the extra votes, leaving the remaining districts to you.</div></div>
+  <div class="card"><div class="k">Cracking</div><div class="v"><b>Split</b> the other party's voters across many districts so they're a minority in each and win nowhere.</div></div>
+ </div>
+ <p>The same 60/40 electorate can produce a 5–0, 3–2, or 2–3 result depending only on where the lines go. See the practice problems.</p>
+
+ <h3>Consequences</h3>
+ <ul>
+  <li>Elected officials don't necessarily reflect the state's actual partisan split.</li>
+  <li>More <b>safe seats</b>, so the real contest moves to the <b>primary</b>. Primary voters are more ideological, which pushes members to the extremes and increases <b>polarization</b>.</li>
+  <li>Protects <b>incumbents</b> and discourages challengers.</li>
+  <li>Can dilute <b>minority representation</b> (cracking minority communities), or concentrate it.</li>
+ </ul>
+
+ <h3>Race: Shaw v. Reno (1993) — REQUIRED CASE</h3>
+ <table>
+  <tbody>
+   <tr><td>Background</td><td>The <b>Voting Rights Act of 1965</b> banned discriminatory voting practices (literacy tests, etc.). Section 5 <b>preclearance</b> required states with a history of discrimination to get federal approval for voting changes. <i>Thornburg v. Gingles</i> (1986) read Section 2 to require <b>majority-minority districts</b> when a minority group is large and compact and voting is racially polarized.</td></tr>
+   <tr><td>Facts</td><td>After the 1990 census, the Justice Department (Attorney General <b>Janet Reno</b>) pushed North Carolina to draw a second majority-Black district. The new <b>12th District</b> snaked about 160 miles along Interstate 85, in places no wider than the highway. White voters led by <b>Ruth Shaw</b> sued.</td></tr>
+   <tr><td>Question</td><td>Does a redistricting plan drawn primarily on the basis of race violate the <b>Equal Protection Clause of the 14th Amendment</b>?</td></tr>
+   <tr><td>Holding</td><td><b>5–4</b>, Justice Sandra Day O'Connor. A district so irregular that it can only be explained by race must face <b>strict scrutiny</b>. The case was sent back to the lower court. (In <i>Shaw v. Hunt</i>, 1996, the district was struck down.)</td></tr>
+   <tr><td>Reasoning</td><td>Race-based districting, even to help a minority group, classifies citizens by race. O'Connor wrote that the map "bears an uncomfortable resemblance to political <b>apartheid</b>." It must be narrowly tailored to a compelling government interest.</td></tr>
+   <tr><td>Impact</td><td>Race can be considered, but it can't be the <b>predominant factor</b> (confirmed in <i>Miller v. Johnson</i>, 1995). Courts still cite Shaw for racial gerrymandering claims, and the tension between the VRA and equal protection runs through <i>Louisiana v. Callais</i> (2026).</td></tr>
+  </tbody>
+ </table>
+
+ <h3>Party: Rucho v. Common Cause (2019)</h3>
+ <p>Challenges to partisan maps in North Carolina (drawn to favor Republicans) and Maryland (drawn to favor Democrats). <b>5–4, Chief Justice Roberts: partisan gerrymandering claims are nonjusticiable political questions</b> in federal court, because there's no manageable standard for "too partisan." State courts and state constitutions, independent commissions, and Congress can still act. <b>Contrast with Baker v. Carr:</b> Baker opened federal courts to malapportionment; Rucho closed them to partisan gerrymandering.</p>
+
+ <h3>The Voting Rights Act after 2013</h3>
+ <ul>
+  <li><b>Shelby County v. Holder (2013)</b>: struck down the Section 4(b) coverage formula. That ended Section 5 preclearance in practice.</li>
+  <li><b>Allen v. Milligan (2023)</b>: 5–4, Roberts. Upheld Section 2 and required Alabama to draw a second majority-Black district.</li>
+  <li><b>Alexander v. South Carolina NAACP (2024)</b>: courts must presume legislatures acted in good faith. "We drew it for party, not race" became a strong defense.</li>
+  <li><b>Louisiana v. Callais (April 29, 2026)</b>: <b>6–3</b>, Justice Samuel Alito. Struck down Louisiana's second majority-Black district as an unconstitutional racial gerrymander and made Section 2 vote-dilution claims much harder to win (plaintiffs must show something close to intentional discrimination). Justice Elena Kagan dissented. It didn't formally overrule Allen v. Milligan, but it sharply weakened it.</li>
+ </ul>
+
+ <h3>The mid-decade redistricting war (2025–26)</h3>
+ <p>States normally redraw once per decade. Starting in 2025, they began redrawing mid-decade to gain an edge in the 2026 midterms:</p>
+ <ul>
+  <li><b>Texas (Aug. 2025)</b>: at President Trump's urging, a new map aimed at <b>+5 Republican seats</b>. Texas House Democrats fled the state to deny a quorum, which delayed but didn't stop the map. A lower court found it a racial gerrymander, but the Supreme Court let it be used for 2026.</li>
+  <li><b>California, Prop 50 (Nov. 4, 2025)</b>: voters approved it about 64%–36%. It temporarily replaced the independent commission's congressional map with one aimed at <b>+5 Democratic seats</b>, a direct response to Texas.</li>
+  <li>Others: Missouri, North Carolina, and Ohio (Republican gains); Utah (a court-ordered map with a new Democratic-leaning seat). After Callais, Florida, Tennessee, Louisiana, and Alabama redrew again. Virginia's attempt was struck down.</li>
+ </ul>
+ <p>This is a live example of every concept in this section: packing and cracking, Rucho leaving partisan maps to the states, Shaw and Callais on race, and commissions versus legislatures.</p>
+
+ <div class="trap">
+  <div class="h">Where points get lost</div>
+  <p><b>Shaw is about RACE; Rucho is about PARTY.</b> Racial gerrymanders get strict scrutiny in federal court; partisan gerrymanders are political questions federal courts won't hear.</p>
+  <p><b>Shaw didn't ban considering race.</b> It held that race can't be the <em>predominant</em> factor without passing strict scrutiny.</p>
+  <p><b>Shaw's plaintiffs won, but the Court didn't strike the map itself in 1993.</b> It sent the case back. The district fell in <i>Shaw v. Hunt</i> (1996).</p>
+  <p><b>Both required cases rest on the 14th Amendment's Equal Protection Clause.</b> That's the link for any SCOTUS-comparison FRQ.</p>
+ </div>
+
+ <div class="frq">
+  <div class="h">FRQ language that scores (SCOTUS comparison)</div>
+  <p>"Both <i>Shaw v. Reno</i> and [non-required case] involve the <b>Equal Protection Clause of the Fourteenth Amendment</b> because in each, the plaintiffs argued that district lines [classified voters by race / diluted their votes]. In <i>Shaw</i>, the Court held that districts drawn <b>predominantly on the basis of race</b> are subject to <b>strict scrutiny</b>…"</p>
+ </div>
+ `,
+ problems:[
+  {kind:'Read the map',
+   q:`Same 25 voters (15 D, 10 R), new lines. Thick borders mark districts.${gerry({grid:['DDDRR','DDDRR','DDDRR','DDDRR','DDDRR'],districts:['45111','45121','45222','45233','45333'],caption:'Map drawn by the state legislature'})}(A) How many districts does each party win? (B) Identify the technique used against Democrats in the two left-hand districts. (C) Which party most likely drew this map?`,
+   sol:`<ol>
+    <li>Count each district (5 voters each):
+    <div class="work">District 1 (top right):     R R R + D D  → R wins 3–2
+District 2 (middle):        R R R + D D  → R wins 3–2
+District 3 (bottom right):  R R R R + D  → R wins 4–1
+District 4 (column 1):      D D D D D    → D wins 5–0
+District 5 (column 2):      D D D D D    → D wins 5–0</div></li>
+    <li><b>(A)</b> R wins 3, D wins 2 — with only 40% of the vote.</li>
+    <li><b>(B)</b> <b>Packing</b>. Ten Democrats are crammed into two districts they win 5–0, wasting six votes that would have been decisive elsewhere.</li>
+    <li><b>(C)</b> Republicans. The minority party turned 40% of the vote into 60% of the seats.</li></ol>
+    <p>Sanity check: in a gerrymander, the winning side wins its seats narrowly (3–2) and the losing side wins big (5–0). Lopsided wins for one party are the telltale sign of packing.</p>
+    <div class="ans">R 3, D 2 · Democrats packed into columns 1–2 · a Republican gerrymander</div>`},
+
+  {kind:'Cracking',
+   q:`Now the districts are the five rows.${gerry({grid:['DDDRR','DDDRR','DDDRR','DDDRR','DDDRR'],districts:['11111','22222','33333','44444','55555'],caption:'Horizontal districts'})}How many seats does each party win, and what technique does this illustrate?`,
+   sol:`<ol>
+    <li>Each row: 3 D, 2 R → D wins every district 3–2.</li>
+    <li>Result: <b>D 5, R 0</b>, even though Republicans are 40% of voters.</li>
+    <li>Republican voters are <b>cracked</b>: spread evenly so they're a losing minority in every district.</li></ol>
+    <div class="ans">D 5 – R 0 · cracking</div>`},
+
+  {kind:'Required case',
+   q:'Summarize the facts, constitutional question, holding, and reasoning of <i>Shaw v. Reno</i> (1993).',
+   sol:`<ol>
+    <li><b>Facts:</b> After the 1990 census, North Carolina, under Justice Department pressure to comply with the Voting Rights Act, created a second majority-Black district: the 12th, a roughly 160-mile snake along I-85.</li>
+    <li><b>Question:</b> Does a district drawn primarily on the basis of race violate the Equal Protection Clause of the 14th Amendment?</li>
+    <li><b>Holding:</b> 5–4 (O'Connor). A plan that can only be explained as separating voters by race is subject to <b>strict scrutiny</b>. The case was sent back to the lower court.</li>
+    <li><b>Reasoning:</b> Racial classifications are presumptively unconstitutional even when intended to help minorities. The district's bizarre shape suggested race was the predominant motive, which O'Connor compared to "political apartheid."</li></ol>
+    <div class="ans">Race-predominant districts trigger strict scrutiny under the 14th Amendment's Equal Protection Clause.</div>`},
+
+  {kind:'SCOTUS comparison',
+   q:`<p><b>Non-required case:</b> In <i>Rucho v. Common Cause</i> (2019), voters challenged North Carolina's congressional map, which legislators openly admitted was drawn to elect 10 Republicans and 3 Democrats. The plaintiffs argued it violated the Equal Protection Clause and the First Amendment. In a 5–4 decision, the Court held that partisan gerrymandering claims present political questions beyond the reach of federal courts.</p><p>(A) Identify the constitutional clause relevant to both <i>Rucho</i> and <i>Baker v. Carr</i>. (B) Explain why the holdings differ. (C) Explain how opponents of partisan gerrymandering could respond to <i>Rucho</i>.</p>`,
+   sol:`<ol>
+    <li><b>(A)</b> The Equal Protection Clause of the 14th Amendment.</li>
+    <li><b>(B)</b> In <i>Baker</i>, the Court found malapportionment <b>justiciable</b> because population equality gives courts a clear, manageable standard. In <i>Rucho</i>, the Court found there is <b>no judicially manageable standard</b> for how much partisanship is too much, so it treated the issue as a political question for elected branches.</li>
+    <li><b>(C)</b> Sue in <b>state courts</b> under state constitutions; use ballot initiatives to create <b>independent redistricting commissions</b> (as in California and Michigan); or lobby <b>Congress</b> to pass a law regulating congressional redistricting (Article I, §4, the Elections Clause).</li></ol>
+    <div class="ans">(A) Equal Protection. (B) Baker had a clear standard (population); Rucho found none for partisanship → political question. (C) State courts, commissions, or congressional legislation.</div>`},
+
+  {kind:'Current events',
+   q:'Explain how the 2025–26 mid-decade redistricting battles (Texas, California\'s Prop 50) illustrate the consequences of <i>Rucho v. Common Cause</i>.',
+   sol:`<ol>
+    <li>Rucho closed the federal courts to <b>partisan</b> gerrymandering claims.</li>
+    <li>With no federal referee, parties escalated. Texas redrew mid-decade to target five more Republican seats, and California voters responded with Prop 50 to target five more Democratic seats. Other states followed.</li>
+    <li>The only remaining checks were political (voters, ballot measures, quorum-breaking walkouts) and state law. That's exactly the path Rucho pointed to.</li></ol>
+    <div class="ans">Without federal-court review of partisan maps, states engaged in tit-for-tat redistricting checked only by state law and voters.</div>`},
+
+  {kind:'Race vs. party',
+   q:'A legislature draws a district that is 70% Black. Challengers call it a racial gerrymander. Legislators say they drew it to pack Democrats, who happen to be mostly Black in that area. Which cases matter, and why does the legislature\'s explanation matter?',
+   sol:`<ol>
+    <li>If race was the <b>predominant</b> factor, <b>Shaw v. Reno</b> applies: strict scrutiny, and the map probably fails.</li>
+    <li>If it was drawn for <b>partisan</b> reasons, <b>Rucho</b> means federal courts won't review it.</li>
+    <li><b>Alexander v. South Carolina NAACP (2024)</b> requires courts to presume legislative good faith and untangle race from party, which makes the partisan defense powerful.</li></ol>
+    <div class="ans">Shaw (race → strict scrutiny) vs. Rucho (party → nonjusticiable). Alexander (2024) makes the partisan explanation hard to overcome.</div>`}
+ ]
+},
+
+/* ---------------------------------------------------------- 4.9 */
+{
+ id:'t49', num:'4.9', title:'Congressional Behavior & Representation',
+ lede:'Members of Congress want to be reelected, want to make good policy, and want power in the chamber, in roughly that order. This section covers how those goals collide with party pressure and a divided electorate.',
+ body:`
+ <h3>Models of representation</h3>
+ <table>
+  <thead><tr><th>Model</th><th>Votes based on…</th><th>Link to the Constitution</th></tr></thead>
+  <tbody>
+   <tr><td>Delegate</td><td>What constituents want, even against their own judgment</td><td>Fits House members' 2-year terms and the Anti-Federalist ideal of representatives who mirror the people (Brutus No. 1)</td></tr>
+   <tr><td>Trustee</td><td>Their own judgment of the public good, even against constituent opinion. Coined by <b>Edmund Burke</b> (1774).</td><td>Fits Senate 6-year terms and <b>Federalist No. 10</b>: representatives "refine and enlarge the public views"</td></tr>
+   <tr><td>Politico</td><td>A blend: a delegate on issues constituents care about, a trustee on the rest</td><td>What most members actually do</td></tr>
+   <tr><td>Partisan</td><td>What party leadership wants</td><td>Dominant today; party-line voting is at record highs</td></tr>
+  </tbody>
+ </table>
+ <p>Related distinction: <b>descriptive representation</b> (members who look like their constituents in race, gender, and background) versus <b>substantive representation</b> (members who advance their constituents' interests). Congress is more diverse than ever but still older, whiter, more male, and much wealthier than the country, and a large share of members are lawyers.</p>
+
+ <h3>Polarization and gridlock</h3>
+ <ul>
+  <li><b>Polarization</b>: the parties have moved apart ideologically, and the overlap between the most liberal Republican and the most conservative Democrat has essentially disappeared. Political scientists measure this with <b>DW-NOMINATE</b> scores.</li>
+  <li><b>Causes</b>: gerrymandered safe seats and primaries, geographic sorting (people living near like-minded people), partisan media, and the decline of conservative Southern Democrats and liberal Northeastern Republicans.</li>
+  <li><b>Gridlock</b>: the inability to pass legislation. It's worse under <b>divided government</b> (different parties controlling the presidency and at least one chamber), but the filibuster produces gridlock even under unified government.</li>
+  <li><b>Lame-duck</b> sessions (after the November election, before the new Congress in January) often see rushed deals because defeated or retiring members have nothing to lose.</li>
+  <li>Effects: shutdowns, reliance on CRs and omnibus bills, more <b>executive orders</b> as presidents route around Congress, and <b>party-line confirmations</b>.</li>
+ </ul>
+
+ <h3>The incumbency advantage</h3>
+ ${lineChart({x:['2014','2016','2018','2020','2022','2024'],series:[{name:'House',values:[95,97,91,95,94,96],color:'#1f3a68'},{name:'Senate',values:[82,93,84,84,100,90],color:'#a33327',dash:true}],min:70,max:100,step:5,unit:'%',ylabel:'incumbents reelected',caption:'Illustrative data for practice · modeled on typical reelection rates of incumbents seeking reelection'})}
+ <p>House incumbents who run again win more than 90% of the time. Senate rates are high but more volatile: statewide races draw stronger challengers, more media coverage, and more competitive electorates. Why incumbents win:</p>
+ <div class="cards">
+  <div class="card"><div class="k">Name recognition</div><div class="v">Years of media coverage and mailers. Challengers start as unknowns.</div></div>
+  <div class="card"><div class="k">Casework</div><div class="v">Staff help constituents with problems like lost Social Security checks or passport delays. It's nonpartisan goodwill that wins votes.</div></div>
+  <div class="card"><div class="k">Franking privilege</div><div class="v">Free official mail to constituents (restricted near elections).</div></div>
+  <div class="card"><div class="k">Credit claiming</div><div class="v">Pork, earmarks, and grants brought home to the district.</div></div>
+  <div class="card"><div class="k">Fundraising</div><div class="v">PACs and interest groups give to likely winners, and incumbents usually outraise challengers by wide margins.</div></div>
+  <div class="card"><div class="k">Redistricting</div><div class="v">Safe seats drawn by friendly legislatures.</div></div>
+ </div>
+ <p><b>Fenno's paradox</b> (political scientist Richard Fenno): Americans hate Congress but love their own member. Congressional approval has hovered around 20% or lower for years, while incumbents keep getting reelected. Voters blame the institution and credit their own representative.</p>
+
+ <h3>Other behavior terms</h3>
+ <ul>
+  <li><b>Constituency</b>: the people a member represents. <b>Constituent service</b> = casework.</li>
+  <li><b>Party-line vote</b>: most of one party votes against most of the other.</li>
+  <li><b>Caucus</b> (also a group like the Congressional Black Caucus or the House Freedom Caucus): members who organize around shared interests or ideology.</li>
+  <li><b>Oversight</b> is more aggressive under divided government, when the opposing party controls committees and investigates the President.</li>
+ </ul>
+
+ <div class="trap">
+  <div class="h">Where points get lost</div>
+  <p><b>Trustee vs. delegate is backwards in half of student answers.</b> A <b>D</b>elegate <b>D</b>oes what the district says; a <b>T</b>rustee <b>T</b>rusts their own judgment.</p>
+  <p><b>Divided government ≠ polarization.</b> Divided government is about which party controls which branch. Polarization is about ideological distance between the parties. Each makes gridlock worse, but they're different things.</p>
+  <p><b>Incumbency advantage is about individual members, not parties.</b> A party can lose its majority while 90%+ of incumbents are still reelected.</p>
+ </div>
+
+ <div class="frq">
+  <div class="h">FRQ language that scores</div>
+  <p>"Because the member is acting as a <b>trustee</b>, she voted based on her own judgment of the national interest rather than constituent preferences, which could <b>hurt her reelection chances</b> if her district's voters opposed the bill."</p>
+ </div>
+ `,
+ problems:[
+  {kind:'Quantitative analysis',
+   q:`Use the incumbency chart above. (A) Identify the year with the lowest House reelection rate. (B) Describe a difference between House and Senate reelection rates. (C) Explain one reason for that difference. (D) Explain how the pattern relates to the incumbency advantage.`,
+   sol:`<ol>
+    <li><b>(A)</b> 2018 (≈91%).</li>
+    <li><b>(B)</b> The House rate is consistently high (91–97%) and stable; the Senate rate is lower in most years and swings more (82% to 100%).</li>
+    <li><b>(C)</b> Senators represent whole states, which are more diverse and harder to gerrymander than House districts; Senate races draw well-funded, well-known challengers (often governors or House members); and they get more media attention.</li>
+    <li><b>(D)</b> Both chambers show reelection rates far above 50%, which reflects advantages like name recognition, casework, and fundraising. The advantage is stronger in the House, where districts are smaller and often drawn as safe seats.</li></ol>
+    <div class="ans">2018 · House higher and steadier · statewide races are more competitive · strong incumbency advantage, stronger in the House</div>`},
+
+  {kind:'Trustee or delegate',
+   q:'Classify each: (1) A senator votes for a trade deal her state\'s voters oppose because she believes it helps the economy long-term. (2) A representative polls his district and votes the way 60% of respondents want. (3) A member follows her district on farm issues but her own judgment on foreign policy.',
+   sol:`<ol><li>Trustee</li><li>Delegate</li><li>Politico</li></ol>
+    <div class="ans">Trustee · Delegate · Politico</div>`},
+
+  {kind:'Concept application',
+   q:`<p>From 2011 to 2017, President Obama faced a Republican House (and, after 2015, a Republican Senate). The 2011 debt-ceiling standoff led to the first-ever downgrade of the U.S. credit rating, and a 16-day government shutdown followed in 2013.</p><p>(A) Identify the term for different parties controlling the presidency and Congress. (B) Explain how this condition contributed to the events described. (C) Describe one action a president might take in response.</p>`,
+   sol:`<ol>
+    <li><b>(A)</b> Divided government.</li>
+    <li><b>(B)</b> Under divided government, the opposing party controls at least one chamber's agenda and can use must-pass legislation (the debt ceiling, appropriations) as leverage. With polarized parties unwilling to compromise, standoffs lead to <b>gridlock</b>, shutdowns, and brinkmanship.</li>
+    <li><b>(C)</b> The president can use <b>executive orders</b> or executive actions (like Obama's DACA in 2012), use the <b>bully pulpit</b> to pressure Congress through public opinion, or <b>veto</b> opposition bills.</li></ol>
+    <div class="ans">Divided government → gridlock and brinkmanship → president turns to executive orders, bully pulpit, and vetoes.</div>`},
+
+  {kind:'Fenno\'s paradox',
+   q:'Congressional approval is around 20%, yet more than 90% of House incumbents who seek reelection win. Explain this apparent contradiction.',
+   sol:`<ol>
+    <li>Voters judge Congress as an institution (gridlock, partisanship, scandal) but judge their own member individually.</li>
+    <li>Individual members build personal support through casework, pork, and name recognition, and they often campaign by running <em>against</em> Congress.</li>
+    <li>Safe districts and weak challengers mean unhappy voters often have no real alternative.</li></ol>
+    <div class="ans">Fenno's paradox: people blame the institution but reward their own member's service, visibility, and district benefits.</div>`},
+
+  {kind:'Polarization causes',
+   q:'Explain how gerrymandering contributes to polarization in Congress.',
+   sol:`<ol>
+    <li>Gerrymandering creates <b>safe seats</b> where one party is certain to win the general election.</li>
+    <li>The only real threat is a <b>primary challenge</b>, and primary voters are fewer and more ideological.</li>
+    <li>Members therefore move toward their party's base and avoid compromise. Being "primaried" from the flank is the risk they fear most.</li>
+    <li>With fewer moderates, the parties drift apart and bipartisan deals get rarer.</li></ol>
+    <div class="ans">Safe seats → primaries matter most → members cater to ideological bases → more polarization.</div>`}
+ ]
+},
+
+/* ---------------------------------------------------------- REF */
+{
+ id:'ref', num:'REF', title:'Night-Before Review',
+ lede:'The whole chapter compressed: numbers to know cold, the cases, the procedures, the scoring sentences, and three cumulative free-response problems in AP format.',
+ body:`
+ <h3>The numbers</h3>
+ <div class="eq"><div class="f">435 · 218 · 100 · 51</div><div class="n">House seats (capped 1929) · House majority / discharge petition · Senate seats · Senate majority (or 50 + VP)</div></div>
+ <div class="eq"><div class="f">60 = cloture</div><div class="n">3/5 of the Senate ends a filibuster (Rule XXII). Not needed for reconciliation or nominations.</div></div>
+ <div class="eq"><div class="f">2/3 = 290 House · 67 Senate</div><div class="n">Veto override (both chambers) · proposing amendments (both) · convicting impeached officials (Senate) · ratifying treaties (Senate)</div></div>
+ <div class="eq"><div class="f">2 yr / 25 / 7 &nbsp;·&nbsp; 6 yr / 30 / 9</div><div class="n">House: term / minimum age / years a citizen · Senate: term / minimum age / years a citizen</div></div>
+ <div class="eq"><div class="f">10 days (Sundays excepted)</div><div class="n">President's window: sign, veto, or do nothing (law if in session; pocket veto if Congress adjourns)</div></div>
+ <div class="eq"><div class="f">48 hours · 60 days · +30</div><div class="n">War Powers Resolution (1973): notify Congress · withdraw without authorization · withdrawal window</div></div>
+ <div class="eq"><div class="f">Oct 1 · 12 bills · ~61 / 27 / 13 %</div><div class="n">Fiscal year start · annual appropriations bills · mandatory / discretionary / interest share of FY2024 outlays</div></div>
+
+ <h3>Case bank</h3>
+ <table>
+  <thead><tr><th>Case</th><th>Year · vote</th><th>One-line holding</th></tr></thead>
+  <tbody>
+   <tr><td>McCulloch v. Maryland</td><td>1819 · 7–0</td><td>Necessary and Proper → implied powers (national bank); federal law is supreme, so states can't tax it</td></tr>
+   <tr><td>Baker v. Carr ★</td><td>1962 · 6–2</td><td>Redistricting is justiciable under the 14th Amendment's Equal Protection Clause</td></tr>
+   <tr><td>Wesberry v. Sanders</td><td>1964</td><td>One person, one vote for U.S. House districts</td></tr>
+   <tr><td>Reynolds v. Sims</td><td>1964</td><td>One person, one vote for both houses of state legislatures</td></tr>
+   <tr><td>INS v. Chadha</td><td>1983</td><td>The one-chamber "legislative veto" is unconstitutional (bicameralism and presentment)</td></tr>
+   <tr><td>Shaw v. Reno ★</td><td>1993 · 5–4</td><td>Districts drawn predominantly by race face strict scrutiny (Equal Protection)</td></tr>
+   <tr><td>U.S. v. Lopez</td><td>1995 · 5–4</td><td>Commerce Clause has limits (guns in school zones)</td></tr>
+   <tr><td>Clinton v. City of New York</td><td>1998 · 6–3</td><td>Line-item veto unconstitutional</td></tr>
+   <tr><td>Shelby County v. Holder</td><td>2013 · 5–4</td><td>VRA coverage formula struck down → preclearance ends</td></tr>
+   <tr><td>Rucho v. Common Cause</td><td>2019 · 5–4</td><td>Partisan gerrymandering is a nonjusticiable political question in federal court</td></tr>
+   <tr><td>Allen v. Milligan</td><td>2023 · 5–4</td><td>Upheld VRA §2; Alabama must draw a 2nd majority-Black district</td></tr>
+   <tr><td>Louisiana v. Callais</td><td>2026 · 6–3</td><td>Louisiana's 2nd majority-Black district struck down; §2 claims made much harder</td></tr>
+  </tbody>
+ </table>
+ <p>★ = required Supreme Court case on the AP exam.</p>
+
+ <h3>The four FRQ types, condensed</h3>
+ <div class="cards">
+  <div class="card"><div class="k">1 · Concept application</div><div class="v">A scenario. Describe a concept, explain how it applies, explain a consequence. Always link the concept to the <b>specific actor in the prompt</b>.</div></div>
+  <div class="card"><div class="k">2 · Quantitative analysis</div><div class="v">Identify a data point (give the number), describe a trend, draw a conclusion, then explain the link to a political principle or institution.</div></div>
+  <div class="card"><div class="k">3 · SCOTUS comparison</div><div class="v">A required case + a new case. Identify the shared clause (usually the 14th Amendment's Equal Protection Clause for this chapter), explain why the outcomes are similar or different, and describe a response.</div></div>
+  <div class="card"><div class="k">4 · Argument essay</div><div class="v">Defensible thesis with a line of reasoning, two pieces of evidence (one from a foundational document), reasoning linking each, and a response to an opposing view (concede/refute/rebut).</div></div>
+ </div>
+
+ <h3>Memorize cold</h3>
+ <ul>
+  <li>House only: revenue bills, impeachment, choosing the President. Senate only: trying impeachments, confirmations, treaties, choosing the VP.</li>
+  <li>Committee types: standing (permanent, lawmaking), select (investigate), joint (both chambers), conference (reconcile a bill).</li>
+  <li>House Rules Committee = traffic cop (open/closed rule). Senate = unanimous consent, holds, filibuster/cloture.</li>
+  <li>Leaders: Speaker Johnson, Majority Leader Scalise, Minority Leader Jeffries; Senate Majority Leader Thune, Minority Leader Schumer, President pro tem Grassley, VP Vance.</li>
+  <li>Succession: VP → Speaker → President pro tem → Secretary of State.</li>
+  <li>Packing (concentrate) vs. cracking (split). Shaw = race; Rucho = party.</li>
+  <li>Mandatory (entitlements, automatic) vs. discretionary (12 appropriations bills).</li>
+  <li>Delegate (constituents) · trustee (own judgment, Burke) · politico (mix).</li>
+ </ul>
+
+ <div class="frq">
+  <div class="h">The highest-value sentence in this chapter</div>
+  <p>"Because [structural feature — Senate filibuster / House Rules Committee / committee chairs from the majority / six-year terms], [actor] is able to [action], which makes it [more/less] likely that [policy outcome] because [link to majority power, minority rights, or responsiveness]."</p>
+ </div>
+
+ <h3>Vocabulary that has to be exact</h3>
+ <table>
+  <thead><tr><th>Don't write</th><th>Write instead</th></tr></thead>
+  <tbody>
+   <tr><td>"The Senate impeaches"</td><td>"The House impeaches; the Senate tries and can convict with 2/3"</td></tr>
+   <tr><td>"Filibuster needs 60 votes"</td><td>"<b>Cloture</b> requires 60 votes to end a filibuster"</td></tr>
+   <tr><td>"Baker v. Carr established one person, one vote"</td><td>"Baker made redistricting justiciable; Wesberry and Reynolds established one person, one vote"</td></tr>
+   <tr><td>"Shaw banned using race"</td><td>"Shaw held that race-predominant districts face strict scrutiny"</td></tr>
+   <tr><td>"Gerrymandering is illegal"</td><td>"Racial gerrymandering is unconstitutional; partisan gerrymandering is nonjusticiable in federal court (Rucho)"</td></tr>
+   <tr><td>"The deficit is the total the government owes"</td><td>"The debt is the total; the deficit is one year's shortfall"</td></tr>
+   <tr><td>"The President makes the budget"</td><td>"The President proposes a budget; Congress appropriates funds"</td></tr>
+   <tr><td>"The VP runs the Senate"</td><td>"The Majority Leader controls the Senate floor; the VP only breaks ties"</td></tr>
+   <tr><td>"Elastic clause = Commerce Clause"</td><td>"Elastic clause = Necessary and Proper Clause"</td></tr>
+  </tbody>
+ </table>
+ `,
+ problems:[
+  {kind:'Cumulative · Concept application',
+   q:`<p>In 2025, a group of senators introduced a bill to require independent commissions to draw congressional districts in every state. The bill has 55 cosponsors in the Senate. In the House, the chair of the relevant committee has refused to schedule a hearing, and the Speaker opposes the bill.</p><p>(A) Describe one power of House committee chairs that is relevant to this scenario. (B) Explain how supporters in the House could get the bill to the floor anyway, and why that is difficult. (C) Explain how Senate procedure could prevent the bill from passing even with 55 supporters. (D) Explain how passing this bill would affect the consequences of <i>Rucho v. Common Cause</i>.</p>`,
+   sol:`<ol>
+    <li><b>(A)</b> Chairs control the committee agenda: they decide whether to hold hearings and markups. Refusing to schedule the bill <b>pigeonholes</b> it.</li>
+    <li><b>(B)</b> A <b>discharge petition</b> with 218 signatures forces the bill to the floor. It's hard because majority-party members rarely defy the Speaker, who controls committee assignments and party resources.</li>
+    <li><b>(C)</b> Opponents can <b>filibuster</b>. Ending debate requires <b>cloture</b> (60 votes); 55 is five short. The bill can't use reconciliation because it isn't a budget measure.</li>
+    <li><b>(D)</b> Rucho left partisan gerrymandering to states and Congress. A federal law under the Elections Clause (Art. I, §4) would do exactly what Rucho invited, replacing state-by-state partisan mapmaking with national rules and limiting the mid-decade redistricting wars.</li></ol>
+    <div class="ans">Chair pigeonholes · discharge petition (218), hard because members won't defy leadership · filibuster, 55 &lt; 60 for cloture · Congress would fill the gap Rucho left.</div>`},
+
+  {kind:'Cumulative · SCOTUS comparison',
+   q:`<p><b>Non-required case:</b> <i>Reynolds v. Sims</i> (1964). Alabama's state senate gave each county one senator regardless of population, so a county of about 15,000 had the same representation as one with over 600,000. Voters sued, arguing this violated the Equal Protection Clause. The Court ruled 8–1 that both houses of a state legislature must be apportioned by population.</p><p>(A) Identify the constitutional clause common to <i>Reynolds v. Sims</i> and <i>Baker v. Carr</i>. (B) Explain how the holding in <i>Baker v. Carr</i> made the decision in <i>Reynolds</i> possible. (C) Explain why the reasoning in <i>Reynolds</i> does not apply to the U.S. Senate.</p>`,
+   sol:`<ol>
+    <li><b>(A)</b> The Equal Protection Clause of the 14th Amendment.</li>
+    <li><b>(B)</b> Before <i>Baker</i>, federal courts treated apportionment as a nonjusticiable political question and wouldn't hear such cases. <i>Baker</i> held that apportionment claims are justiciable under Equal Protection, which let the Court reach the merits in <i>Reynolds</i> and require population-based districts.</li>
+    <li><b>(C)</b> Equal state representation in the U.S. Senate is written into the Constitution itself (Article I and Article V, from the Great Compromise). A constitutional provision can't violate another part of the Constitution. Counties, by contrast, are just subdivisions of a state, not sovereign units, so they have no claim to equal representation.</li></ol>
+    <div class="ans">(A) Equal Protection. (B) Baker made the issue justiciable, opening the door to Reynolds. (C) The Constitution itself guarantees two senators per state.</div>`},
+
+  {kind:'Cumulative · Argument essay',
+   q:`<p>Develop an argument that explains whether members of Congress should act primarily as <b>trustees</b> or as <b>delegates</b>.</p><p>Use at least one piece of evidence from: Federalist No. 10, Federalist No. 51, Brutus No. 1, or the U.S. Constitution. Use a second piece of evidence from another listed document or from your study of Congress. Respond to an opposing perspective.</p>`,
+   sol:`<p>There's no single right answer. This is a model outline that would earn full credit (6/6).</p>
+    <ol>
+     <li><b>Thesis (with a line of reasoning):</b> "Members of Congress should act primarily as trustees because the framers designed representation to filter public passions, and trustees are better positioned to protect minority rights and long-term national interests."</li>
+     <li><b>Evidence 1 — Federalist No. 10:</b> Madison argues that representatives "refine and enlarge the public views" through a body of citizens "whose wisdom may best discern the true interest of their country." <b>Reasoning:</b> this describes a trustee; Madison wanted representatives to use judgment rather than mirror majority factions, which could oppress minorities.</li>
+     <li><b>Evidence 2 — the Senate's six-year staggered terms</b> (Article I): designed to insulate senators from short-term opinion. <b>Reasoning:</b> the Constitution itself builds in trustee-style independence, as in the "cooling saucer" idea. Example: senators who voted for unpopular but necessary measures, like the 2008 TARP bailout, arguably prevented a deeper financial collapse.</li>
+     <li><b>Opposing view + rebuttal:</b> "Brutus No. 1 argued that representatives in a large republic would be too distant from the people and that true representation requires resembling constituents, which supports the delegate model. However, the House's two-year terms already provide a delegate-style check, so the system balances both; trustees in the Senate don't eliminate accountability, because they still face elections."</li>
+    </ol>
+    <p>Rubric reminders: the thesis must take a side (not "both have merits"); each piece of evidence needs its own "because" reasoning; the rebuttal must actually engage the opposing argument, not just mention it.</p>
+    <div class="ans">Defensible thesis + Fed 10 (and/or Art. I terms) as evidence + reasoning for each + rebuttal of the Brutus No. 1 delegate argument.</div>`}
+ ]
+}
+];
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+var content=document.getElementById('content');
+var nav=document.getElementById('nav');
+var peaks=document.getElementById('peaks');
+var peakaxis=document.getElementById('peakaxis');
+var chamber=document.getElementById('chamber');
+var current=0;
+var SEATS=[];
+
+function buildNav(){
+  var h='<div class="navgroup">The Docket</div>';
+  TOPICS.forEach(function(t,i){
+    if(t.id==='ref') h+='<div class="navgroup">Study tools</div>';
+    h+='<button class="navitem" data-i="'+i+'">'+
+       '<span class="num">'+(t.id==='ref'?'★':t.num)+'</span>'+
+       '<span class="lbl">'+t.title+'</span>'+
+       '<span class="dot" data-dot="'+t.id+'"></span></button>';
+  });
+  nav.innerHTML=h;
+  nav.querySelectorAll('.navitem').forEach(function(b){
+    b.addEventListener('click',function(){ show(+b.dataset.i); });
+  });
+}
+
+function buildSpectrum(){
+  var ph='',ax='';
+  TOPICS.forEach(function(t){
+    if(t.id==='ref')return;
+    ph+='<div class="peak"><i data-bar="'+t.id+'" style="height:0%"></i></div>';
+    ax+='<span>'+t.num.split('.')[1]+'</span>';
+  });
+  peaks.innerHTML=ph;peakaxis.innerHTML=ax;
+  /* 100-seat hemicycle; seats fill left to right as problems are solved */
+  var rows=5,r0=52,r1=102,cx=110,cy=110,radii=[],sum=0;
+  for(var i=0;i<rows;i++){var r=r0+(r1-r0)*i/(rows-1);radii.push(r);sum+=r;}
+  var counts=radii.map(function(r){return Math.round(100*r/sum);});
+  counts[rows-1]+=100-counts.reduce(function(a,b){return a+b;},0);
+  var pts=[];
+  radii.forEach(function(r,i){var n=counts[i];for(var k=0;k<n;k++){var a=Math.PI-Math.PI*k/(n-1);pts.push({a:a,x:cx+r*Math.cos(a),y:cy-r*Math.sin(a)});}});
+  pts.sort(function(p,q){return q.a-p.a;});
+  var s='<title>Progress shown as seats in a 100-seat chamber</title>';
+  pts.forEach(function(p,j){s+='<circle data-seat="'+j+'" cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="4" fill="#d9ccae"/>';});
+  s+='<text x="110" y="106" text-anchor="middle" font-family="Fraunces, serif" font-weight="900" font-size="22" fill="#14213d" id="seatnum">0</text>';
+  chamber.innerHTML=s;
+  SEATS=chamber.querySelectorAll('circle');
+}
+
+function buildSections(){
+  var h='';
+  TOPICS.forEach(function(t,i){
+    h+='<section id="'+t.id+'">';
+    h+='<div class="tnum">'+(t.id==='ref'?'Reference · Night-before review':'Section '+t.num)+'</div>';
+    h+='<h2 class="title">'+t.title+'</h2>';
+    h+='<p class="lede">'+t.lede+'</p>';
+    h+=t.body;
+    h+='<div class="pracheader"><h3>Practice</h3><span class="count" data-count="'+t.id+'"></span></div>';
+    t.problems.forEach(function(p,j){
+      var key=t.id+'-'+j;
+      h+='<div class="prob" id="p-'+key+'">'+
+         '<div class="probq"><div class="qtag"><span class="kind">'+p.kind+'</span><span>No. '+(j+1)+'</span></div>'+
+         '<div class="body">'+p.q+'</div></div>'+
+         '<div class="probactions">'+
+           '<button class="reveal" data-sol="'+key+'">Show solution</button>'+
+           '<button class="mark" data-mark="'+key+'">Got it</button>'+
+         '</div>'+
+         '<div class="sol" id="s-'+key+'"><div class="sh">Worked solution</div>'+p.sol+'</div>'+
+         '</div>';
+    });
+    h+='<div class="mastered"><div class="t"><b>Section status</b>'+
+       'Mark this once you can explain it without looking.</div>'+
+       '<button data-master="'+t.id+'">Mark as mastered</button></div>';
+    h+='<div class="jump">';
+    if(i>0)h+='<button data-go="'+(i-1)+'"><div class="d">← Previous</div><div class="n">'+TOPICS[i-1].title+'</div></button>';
+    if(i<TOPICS.length-1)h+='<button data-go="'+(i+1)+'"><div class="d">Next →</div><div class="n">'+TOPICS[i+1].title+'</div></button>';
+    h+='</div></section>';
+  });
+  content.innerHTML=h;
+
+  content.querySelectorAll('[data-sol]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var el=document.getElementById('s-'+b.dataset.sol);
+      var open=el.classList.toggle('show');
+      b.textContent=open?'Hide solution':'Show solution';
+    });
+  });
+  content.querySelectorAll('[data-mark]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var k=b.dataset.mark;
+      state.solved[k]=!state.solved[k];
+      paint();saveState();
+    });
+  });
+  content.querySelectorAll('[data-master]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var k=b.dataset.master;
+      state.mastered[k]=!state.mastered[k];
+      paint();saveState();
+    });
+  });
+  content.querySelectorAll('[data-go]').forEach(function(b){
+    b.addEventListener('click',function(){ show(+b.dataset.go); });
+  });
+}
+
+function paint(){
+  var totalP=0,doneP=0;
+  TOPICS.forEach(function(t){
+    var done=0;
+    t.problems.forEach(function(p,j){
+      var k=t.id+'-'+j,on=!!state.solved[k];
+      if(on)done++;
+      var btn=content.querySelector('[data-mark="'+k+'"]');
+      if(btn){btn.classList.toggle('on',on);btn.textContent=on?'✓ Got it':'Got it';}
+      var box=document.getElementById('p-'+k);
+      if(box)box.classList.toggle('solved',on);
+    });
+    totalP+=t.problems.length;doneP+=done;
+    var c=content.querySelector('[data-count="'+t.id+'"]');
+    if(c)c.textContent=done+' / '+t.problems.length+' solved';
+    var m=!!state.mastered[t.id];
+    var mb=content.querySelector('[data-master="'+t.id+'"]');
+    if(mb){mb.classList.toggle('on',m);mb.textContent=m?'✓ Mastered':'Mark as mastered';}
+    var dot=nav.querySelector('[data-dot="'+t.id+'"]');
+    if(dot)dot.classList.toggle('done',m);
+    var bar=peaks.querySelector('[data-bar="'+t.id+'"]');
+    if(bar){
+      var frac=t.problems.length?done/t.problems.length:0;
+      var h=Math.round((m?100:frac*80));
+      bar.style.height=Math.max(h,4)+'%';
+    }
+  });
+  var pct=Math.round(totalP?doneP/totalP*100:0);
+  document.getElementById('pct').textContent=pct+'%';
+  var seatsFilled=Math.round(totalP?doneP/totalP*100:0);
+  for(var i=0;i<SEATS.length;i++){
+    var on=i<seatsFilled;
+    SEATS[i].setAttribute('fill',on?(i<60?'#14213d':(i<67?'#a88532':'#2f6b3f')):'#d9ccae');
+  }
+  var sn=document.getElementById('seatnum'); if(sn)sn.textContent=seatsFilled;
+  var sub=document.getElementById('seatsub');
+  if(sub)sub.textContent=seatsFilled+' of 100 seats · '+(seatsFilled>=67?'veto-proof supermajority':seatsFilled>=60?'cloture invoked — 67 overrides a veto':seatsFilled>=51?'majority — 60 invokes cloture':'51 for a majority');
+}
+
+function show(i){
+  current=i;
+  content.querySelectorAll('section').forEach(function(s,j){s.classList.toggle('on',j===i);});
+  nav.querySelectorAll('.navitem').forEach(function(b,j){b.classList.toggle('on',j===i);});
+  var t=TOPICS[i];
+  document.getElementById('crumb').textContent=(t.id==='ref'?'Reference · ':t.num+' · ')+t.title;
+  window.scrollTo({top:0,behavior:'instant'});
+  syncRevealAll();
+}
+
+var allOpen=false;
+function syncRevealAll(){
+  allOpen=false;
+  document.getElementById('revealall').classList.remove('on');
+  document.getElementById('revealall').textContent='Show all solutions';
+}
+document.getElementById('revealall').addEventListener('click',function(){
+  allOpen=!allOpen;
+  var sec=content.querySelectorAll('section')[current];
+  sec.querySelectorAll('.sol').forEach(function(s){s.classList.toggle('show',allOpen);});
+  sec.querySelectorAll('[data-sol]').forEach(function(b){b.textContent=allOpen?'Hide solution':'Show solution';});
+  this.classList.toggle('on',allOpen);
+  this.textContent=allOpen?'Hide all solutions':'Show all solutions';
+});
+
+document.getElementById('reset').addEventListener('click',function(){
+  state.solved={};state.mastered={};
+  content.querySelectorAll('.sol').forEach(function(s){s.classList.remove('show');});
+  content.querySelectorAll('[data-sol]').forEach(function(b){b.textContent='Show solution';});
+  paint();saveState();
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.target.tagName==='INPUT')return;
+  if(e.key==='ArrowRight'&&current<TOPICS.length-1)show(current+1);
+  if(e.key==='ArrowLeft'&&current>0)show(current-1);
+});
+
+(async function init(){
+  buildNav();buildSpectrum();buildSections();
+  await loadState();
+  paint();show(0);
+})();
+</script>
+</body>
+</html>
